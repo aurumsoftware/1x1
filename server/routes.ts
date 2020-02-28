@@ -13,6 +13,8 @@ routes.post('/meetings', MeetingController.store);
 routes.put('/meetings/:id', MeetingController.update);
 routes.delete('/meetings/:id', MeetingController.remove);
 
+routes.get('/private_notes/:userId', PrivateNotesController.index);
+routes.get('/private_notes/:userId/meeting/:meetingId', PrivateNotesController.indexByMeeting);
 routes.post('/private_notes', PrivateNotesController.store);
 
 export default routes;

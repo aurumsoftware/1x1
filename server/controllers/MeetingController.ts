@@ -37,12 +37,19 @@ class MeetingController {
 
       return res.json(meeting);
     } catch (err) {
-      if (err) {
-        return res.status(403).json({ error: 'Falha ao atualizar reunião' });
-      }
+      return res.status(403).json({ error: 'Falha ao atualizar reunião' });
     }
+  }
 
-    return res.json({ error: 'Falha ao atualizar reunião' });
+  public async remove(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    try {
+      await Meeting.findByIdAndDelete(id);
+      return res.json({ success: 'Meeting deleted!' });
+    } catch (err) {
+      return res.status(403).json({ error: 'Falha ao remover reunião' });
+    }
   }
 }
 

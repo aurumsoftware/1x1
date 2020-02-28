@@ -21,6 +21,13 @@ export interface Meeting {
   updatedAt: string;
 }
 
+export interface PrivateNote {
+  _id: string;
+  meetingId: string;
+  userId: string;
+  description: string;
+}
+
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 export type Color = 'primary' | 'secondary';

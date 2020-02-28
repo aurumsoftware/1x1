@@ -23,7 +23,15 @@ class PrivateNoteController {
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
-    return res.json('');
+    const { id } = req.params;
+
+    const { description } = req.body;
+    try {
+      const privateNote = await PrivateNote.findByIdAndUpdate(id, { description }, { new: true });
+      return res.json(privateNote);
+    } catch (err) {
+      return res.status(403).json({ error: 'Falha ao atualizar anotação' });
+    }
   }
 
   public async remove(req: Request, res: Response): Promise<Response> {

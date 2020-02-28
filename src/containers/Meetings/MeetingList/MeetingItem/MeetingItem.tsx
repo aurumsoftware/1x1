@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Meeting } from '../../../../../types';
 import MeetingDisplayItem from './MeetingDisplayItem';
 import MeetingEditItem from './MeetingEditItem';
+import { Container } from './styles';
 
 interface Props {
   meeting: Meeting;
@@ -13,7 +14,11 @@ const MeetingItem: React.FC<Props> = ({ meeting, editing = false }) => {
 
   const handleToggleIsEditing = (): void => setIsEditing(!isEditing);
 
-  return isEditing ? <MeetingEditItem /> : <MeetingDisplayItem meeting={meeting} onEdit={handleToggleIsEditing} />;
+  return (
+    <Container>
+      {isEditing ? <MeetingEditItem /> : <MeetingDisplayItem meeting={meeting} onEdit={handleToggleIsEditing} />}
+    </Container>
+  );
 };
 
 export default MeetingItem;

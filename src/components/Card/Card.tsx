@@ -1,17 +1,22 @@
+import { CardActionArea } from '@material-ui/core';
 import React from 'react';
-import { Container, StyledCard } from './styles';
+import { StyledCard } from './styles';
 
 interface Props {
   onClick?: () => void;
 }
 
 const Card: React.FC<Props> = ({ children, onClick }) => {
-  return (
-    <Container>
-      <div onClick={onClick}>
-        <StyledCard clickable={!!onClick}>{children}</StyledCard>
-      </div>
-    </Container>
+  const clickable = !!onClick;
+
+  const content = <StyledCard clickable={!!onClick}>{children}</StyledCard>;
+
+  return clickable ? (
+    <CardActionArea>
+      <div onClick={onClick}>{content}</div>
+    </CardActionArea>
+  ) : (
+    content
   );
 };
 

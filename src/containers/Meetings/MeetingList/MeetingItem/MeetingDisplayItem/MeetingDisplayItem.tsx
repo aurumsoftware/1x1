@@ -1,10 +1,10 @@
-import { IconButton, makeStyles, Typography } from '@material-ui/core';
+import { IconButton, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { format } from 'date-fns';
 import React from 'react';
 import { Meeting, Task } from '../../../../../../types';
 import Card from '../../../../../components/Card';
 import Chip from '../../../../../components/Chip/Chip';
+import DateField from '../../../../../components/DateField';
 import { Content, Header } from '../styles';
 
 interface Props {
@@ -12,16 +12,8 @@ interface Props {
   onEdit: () => void;
 }
 
-const useStyles = makeStyles(theme => ({
-  meetingDate: {
-    color: theme.palette.secondary.dark,
-  },
-}));
-
 const MeetingDisplayItem: React.FC<Props> = ({ meeting, onEdit }) => {
-  const classes = useStyles();
-
-  const { meetingDate, meetingTitle, checklist } = meeting;
+  const { meetingDate, meetingTitle, checklist = [] } = meeting;
 
   const countDoneTasks = (acc: number, item: Task): number => (item.checked ? acc + 1 : acc);
 
@@ -37,9 +29,7 @@ const MeetingDisplayItem: React.FC<Props> = ({ meeting, onEdit }) => {
             </Typography>
             <Chip color="primary" label={`${doneCount} de ${checklist.length}`} margin />
           </Header>
-          <Typography variant="subtitle2" className={classes.meetingDate}>
-            {format(new Date(meetingDate), "dd 'de' MMM, yyyy")}
-          </Typography>
+          <DateField date={new Date(meetingDate)} />
         </div>
         <IconButton color="secondary" aria-label="delete">
           <DeleteIcon />

@@ -10,6 +10,9 @@ export const theme = {
       main: '#202124',
       dark: '#6C757D',
     },
+    textSecondary: {
+      main: '#DEE2E6',
+    },
   },
   typography: {
     fontSize: 14,

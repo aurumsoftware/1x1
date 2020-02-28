@@ -58,7 +58,9 @@ interface Props {}
 const MeetingList: React.FC<Props> = () => {
   const [meetings, setMeetings] = useState<Meeting[]>(MOCKED_MEETINGS);
 
-  const mapMeeting = (meeting: Meeting): ReactElement => <MeetingItem meeting={meeting}></MeetingItem>;
+  const mapMeeting = (meeting: Meeting): ReactElement => (
+    <MeetingItem key={meeting._id} meeting={meeting}></MeetingItem>
+  );
 
   return <>{meetings.map(mapMeeting)}</>;
 };

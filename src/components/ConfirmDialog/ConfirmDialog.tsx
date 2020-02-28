@@ -9,10 +9,10 @@ interface Props {
   onClick?: () => void;
 }
 
-const ConfirmDialog: React.FC<Props> = ({ handleClose, open, title, text, onClick }) => {
+const ConfirmDialog: React.FC<Props> = ({ handleClose, open = false, title, text, onClick }) => {
   return (
     <Dialog
-      open={true}
+      open={open}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
@@ -22,10 +22,10 @@ const ConfirmDialog: React.FC<Props> = ({ handleClose, open, title, text, onClic
         <DialogContentText id="alert-dialog-description">{text}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClick} color="default">
+        <Button onClick={handleClose} color="default">
           Cancel
         </Button>
-        <Button onClick={handleClose} color="default">
+        <Button onClick={onClick} color="default">
           Ok
         </Button>
       </DialogActions>

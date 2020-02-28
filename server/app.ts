@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import routes from './routes';
 
 class App {
   public server: express.Application;
@@ -25,9 +26,7 @@ class App {
   }
 
   private routes(): void {
-    this.server.get('/', (req, res) => {
-      return res.send('Ola enfermeira');
-    });
+    this.server.use(routes);
   }
 }
 

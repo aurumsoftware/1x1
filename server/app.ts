@@ -12,6 +12,7 @@ class App {
 
     this.middlewares();
     this.routes();
+    this.database();
   }
 
   private middlewares(): void {
@@ -20,8 +21,10 @@ class App {
   }
 
   private database(): void {
-    mongoose.connect('www.com', {
+    mongoose.connect('mongodb+srv://guibas:12qwaszx@cluster0-nibop.mongodb.net/1x1?retryWrites=true&w=majority', {
       useNewUrlParser: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true,
     });
   }
 

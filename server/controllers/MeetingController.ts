@@ -1,4 +1,3 @@
-import { MeetingModel } from './../models/Meeting';
 import { Request, Response } from 'express';
 import { Meeting } from '../models/Meeting';
 

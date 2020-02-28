@@ -35,7 +35,14 @@ class PrivateNoteController {
   }
 
   public async remove(req: Request, res: Response): Promise<Response> {
-    return res.json('');
+    const { id } = req.params;
+
+    try {
+      await PrivateNote.findByIdAndDelete(id);
+      return res.json({ success: 'Note deleted!' });
+    } catch (err) {
+      return res.status(403).json({ error: 'Falha ao remover reunião' });
+    }
   }
 }
 

@@ -17,5 +17,6 @@ routes.get('/private_notes/:userId', PrivateNotesController.index);
 routes.get('/private_notes/:userId/meeting/:meetingId', PrivateNotesController.indexByMeeting);
 routes.post('/private_notes', PrivateNotesController.store);
 routes.put('/private_notes/:id', PrivateNotesController.update);
+routes.delete('/private_notes/:id', PrivateNotesController.remove);
 
 export default routes;

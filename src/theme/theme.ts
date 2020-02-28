@@ -25,6 +25,11 @@ export const theme = {
       xl: '20px',
       xxl: '35px',
     },
+    h6: {
+      fontWeight: 700,
+      fontSize: '16px',
+      lineHeight: '24px',
+    },
     subtitle1: {
       fontWeight: 700,
       fontSize: '20px',
@@ -35,6 +40,14 @@ export const theme = {
       fontSize: '14px',
       lineHeight: '20px',
     },
+    caption: { fontWeight: 700, fontSize: '12px', lineHeight: '14px' },
+  },
+  spacings: {
+    xs: '8px',
+    sm: '12px',
+    md: '16px',
+    lg: '24px',
+    xl: '32px',
   },
 };
 

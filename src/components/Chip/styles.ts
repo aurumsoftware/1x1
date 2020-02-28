@@ -6,7 +6,9 @@ export interface PropTypes {
   margin?: boolean;
 }
 
-export const StyledChip = styled.span<PropTypes>`
+export const StyledChip = styled.div<PropTypes>`
+  display: flex;
+  align-items: center;
   padding: 0 ${({ theme }): string => theme.spacings.xs};
   border: 1px solid ${({ theme, color }): string => theme.palette[color].main};
   border-radius: 4px;

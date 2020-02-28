@@ -1,15 +1,19 @@
-import React, { useContext } from 'react';
+import { CardActionArea } from '@material-ui/core';
+import React from 'react';
 import { StyledCard } from './styles';
-import { ThemeContext } from 'styled-components';
 
-interface Props {}
+interface Props {
+  onClick?: () => void;
+}
 
-const Card: React.FC<Props> = ({ children }) => {
-  const theme = useContext(ThemeContext);
-
-  console.log('THEME', theme);
-
-  return <StyledCard>{children}</StyledCard>;
+const Card: React.FC<Props> = ({ children, onClick }) => {
+  return (
+    <CardActionArea>
+      <div onClick={onClick}>
+        <StyledCard clickable={!!onClick}>{children}</StyledCard>
+      </div>
+    </CardActionArea>
+  );
 };
 
 export default Card;

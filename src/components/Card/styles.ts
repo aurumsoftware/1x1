@@ -5,10 +5,6 @@ interface Props {
   clickable: boolean;
 }
 
-export const Container = styled(CardActionArea)`
-  margin-bottom: ${({ theme }): string => theme.spacings.sm};
-`;
-
 export const StyledCard = styled(Card)<Props>`
   border: 1px solid ${({ theme }): string => theme.palette.secondary.light};
   ${({ theme }): string => `padding: ${theme.spacings.md} ${theme.spacings.lg};`}

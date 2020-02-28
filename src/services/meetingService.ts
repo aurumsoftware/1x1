@@ -3,11 +3,12 @@ import { Meeting } from '../../types';
 
 const MEETINGS = '/meetings';
 
-const createMeeting = (meeting: Meeting): Promise<Response> => api.post(MEETINGS, meeting);
+const createMeeting = (meeting: Meeting): Promise<Response> => api.post(MEETINGS, meeting).then(({ data }) => data);
 
-const updateMeeting = (meeting: Meeting, id: string): Promise<Response> => api.put(`${MEETINGS}/${id}`, meeting);
+const updateMeeting = (meeting: Meeting, id: string): Promise<Response> =>
+  api.put(`${MEETINGS}/${id}`, meeting).then(({ data }) => data);
 
-const listMeetings = (userId: string): Promise<Response> => api.get(`${MEETINGS}/${userId}`);
+const listMeetings = (userId: string): Promise<Meeting[]> => api.get(`${MEETINGS}/${userId}`).then(({ data }) => data);
 
 const removeMeeting = (id: string): Promise<Response> => api.delete(`${MEETINGS}/${id}`);
 

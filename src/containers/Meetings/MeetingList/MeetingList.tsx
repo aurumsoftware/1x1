@@ -1,6 +1,7 @@
-import React, { useState, ReactElement } from 'react';
+import React, { useState, ReactElement, useEffect } from 'react';
 import MeetingItem from './MeetingItem';
 import { Meeting } from '../../../../types';
+import meetingService from '../../../services/meetingService';
 
 const MOCKED_MEETINGS = [
   {
@@ -57,10 +58,15 @@ interface Props {}
 
 const MeetingList: React.FC<Props> = () => {
   const [meetings, setMeetings] = useState<Meeting[]>(MOCKED_MEETINGS);
+  const fetchMeetings = async () => {
+    const meeting = await meetingService.listMeetings('5e59330e64a77a11ab25dd11');
+    setMeetings(meeting);
+  };
+  useEffect(() => {
+    fetchMeetings();
+  }, []);
 
-  const mapMeeting = (meeting: Meeting): ReactElement => (
-    <MeetingItem key={meeting._id} meeting={meeting}></MeetingItem>
-  );
+  const mapMeeting = (meeting: Meeting): ReactElement => <MeetingItem meeting={meeting} key={meeting._id} />;
 
   return <>{meetings.map(mapMeeting)}</>;
 };

@@ -1,9 +1,13 @@
-import { Card } from '@material-ui/core';
+import { Card, CardActionArea } from '@material-ui/core';
 import styled from 'styled-components';
 
 interface Props {
   clickable: boolean;
 }
+
+export const Container = styled(CardActionArea)`
+  margin-bottom: ${({ theme }): string => theme.spacings.sm};
+`;
 
 export const StyledCard = styled(Card)<Props>`
   border: 1px solid ${({ theme }): string => theme.palette.secondary.light};
@@ -14,5 +18,4 @@ export const StyledCard = styled(Card)<Props>`
     background-color: white;
     ${({ theme, clickable }): string => (clickable ? `border-color: ${theme.palette.primary.main}` : '')}
   }
-  margin-bottom: ${({ theme }): string => theme.spacings.sm};
 `;

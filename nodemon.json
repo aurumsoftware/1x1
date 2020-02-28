@@ -1,5 +1,7 @@
 {
+  "watch": ["server"],
+  "ext": "ts",
   "execMap": {
-    "js": "node -r sucrase/register"
+    "ts": "sucrase-node server/server.ts"
   }
 }

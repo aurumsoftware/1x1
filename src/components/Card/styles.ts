@@ -14,4 +14,5 @@ export const StyledCard = styled(Card)<Props>`
     background-color: white;
     ${({ theme, clickable }): string => (clickable ? `border-color: ${theme.palette.primary.main}` : '')}
   }
+  margin-bottom: ${({ theme }): string => theme.spacings.sm};
 `;

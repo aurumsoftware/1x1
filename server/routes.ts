@@ -7,7 +7,8 @@ const routes = Router();
 //routes.get('/users', UserController.index);
 routes.post('/users', UserController.store);
 
-routes.get('/meetings/:id', MeetingController.index);
+routes.get('/meetings/:userId', MeetingController.index);
 routes.post('/meetings', MeetingController.store);
+routes.put('/meetings/:id', MeetingController.update);
 
 export default routes;

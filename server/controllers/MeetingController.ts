@@ -22,16 +22,20 @@ class MeetingController {
     const { meetingTitle, meetingDate, checklist, description, userId1, userId2 } = req.body;
 
     try {
-      const meeting = await Meeting.findByIdAndUpdate(id, {
-        meetingTitle,
-        meetingDate,
-        checklist,
-        description,
-        userId1,
-        userId2,
-      });
+      const meeting = await Meeting.findByIdAndUpdate(
+        id,
+        {
+          meetingTitle,
+          meetingDate,
+          checklist,
+          description,
+          userId1,
+          userId2,
+        },
+        { new: true },
+      );
 
-      return res.status(200).json({ success: 'Updateou' });
+      return res.json(meeting);
     } catch (err) {
       if (err) {
         return res.status(403).json({ error: 'Falha ao atualizar reunião' });

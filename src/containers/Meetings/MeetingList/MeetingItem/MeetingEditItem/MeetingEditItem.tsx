@@ -1,16 +1,59 @@
+import { Button } from '@material-ui/core';
+import { useFormik } from 'formik';
 import React from 'react';
-import { Paper } from '@material-ui/core';
-import Card from '../../../../../components/Card';
+import ReactQuill from 'react-quill';
 import { Meeting } from '../../../../../../types';
+import Card from '../../../../../components/Card';
+import DateField from '../../../../../components/DateField';
+import TextInput from '../../../../../components/TextInput';
+import { Actions, Divider } from './styles';
 
 interface Props {
   meeting?: Meeting;
+  onFinish: () => void;
 }
 
-const MeetingEditItem: React.FC<Props> = ({ meeting }) => {
+const MeetingEditItem: React.FC<Props> = ({ meeting, onFinish }) => {
+  const buildInitialValues = (): Meeting =>
+    meeting || {
+      _id: undefined,
+      description: '',
+      meetingTitle: '',
+      meetingDate: new Date(),
+      userId1: '1',
+      userId2: '2',
+    };
+
+  const { handleSubmit, handleChange, values } = useFormik({
+    initialValues: buildInitialValues(),
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
     <Card>
-      <input type="text" placeholder="Digite o título"></input>
+      <form onSubmit={handleSubmit}>
+        <TextInput
+          id="meetingTitle"
+          name="meetingTitle"
+          type="text"
+          placeholder="Digite o título"
+          onChange={handleChange}
+          value={values.meetingTitle}
+        />
+        <DateField date={new Date(values.meetingDate)} onChange={(): void => console.log('batata')} />
+        <ReactQuill theme="snow" />
+        <Divider />
+        <Actions>
+          <Button color="secondary" onClick={onFinish}>
+            Cancelar
+          </Button>
+          <Button type="submit" color="primary">
+            Salvar
+          </Button>
+        </Actions>
+      </form>
     </Card>
   );
 };

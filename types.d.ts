@@ -10,15 +10,15 @@ export interface Task {
 }
 
 export interface Meeting {
-  _id: string;
-  checklist: Task[];
+  _id: string | undefined;
+  checklist?: Task[];
   meetingTitle: string;
-  meetingDate: string;
+  meetingDate: string | Date;
   description: string;
   userId1: string;
   userId2: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
 }
 
 export interface PrivateNote {

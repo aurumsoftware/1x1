@@ -3,13 +3,13 @@ import React from 'react';
 import Meetings from './containers/Meetings';
 import theme from './theme/theme';
 import { ThemeProvider } from 'styled-components';
-import 'react-quill/dist/quill.snow.css';
+import Routes from './containers/Routes';
 
 const App: React.FC = () => {
   return (
     <MuiThemeProvider theme={theme}>
       <ThemeProvider theme={theme}>
-        <Meetings />
+        <Routes />
       </ThemeProvider>
     </MuiThemeProvider>
   );

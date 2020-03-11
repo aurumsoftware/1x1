@@ -1,7 +1,6 @@
 import { Button } from '@material-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
-import ReactQuill from 'react-quill';
 import { Meeting } from '../../../../../../types';
 import Card from '../../../../../components/Card';
 import DateField from '../../../../../components/DateField';
@@ -43,7 +42,6 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onFinish }) => {
           value={values.meetingTitle}
         />
         <DateField date={new Date(values.meetingDate)} onChange={(): void => console.log('batata')} />
-        <ReactQuill theme="snow" />
         <Divider />
         <Actions>
           <Button color="secondary" onClick={onFinish}>

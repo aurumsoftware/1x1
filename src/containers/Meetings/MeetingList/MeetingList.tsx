@@ -15,7 +15,7 @@ const MOCKED_MEETINGS = [
         description: 'teste 2',
       },
     ],
-    _id: '5e593967df282e1387e4b8c5',
+    _id: '5e593967df255387e4b8c5',
     meetingTitle: 'oi',
     meetingDate: '2020-02-28T15:35:01.250Z',
     description: 'descricao da reuniao',
@@ -54,14 +54,14 @@ const MOCKED_MEETINGS = [
   },
 ];
 
-interface Props {}
-
-const MeetingList: React.FC<Props> = () => {
+const MeetingList: React.FC = () => {
   const [meetings, setMeetings] = useState<Meeting[]>(MOCKED_MEETINGS);
-  const fetchMeetings = async () => {
+
+  const fetchMeetings = async (): Promise<void> => {
     const meeting = await meetingService.listMeetings('5e59330e64a77a11ab25dd11');
-    setMeetings(meeting);
+    // setMeetings(meeting);
   };
+
   useEffect(() => {
     fetchMeetings();
   }, []);

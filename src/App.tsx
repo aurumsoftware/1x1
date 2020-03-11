@@ -1,9 +1,8 @@
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core';
 import React from 'react';
-import Meetings from './containers/Meetings';
-import theme from './theme/theme';
 import { ThemeProvider } from 'styled-components';
 import Routes from './containers/Routes';
+import theme from './theme/theme';
 
 const App: React.FC = () => {
   return (

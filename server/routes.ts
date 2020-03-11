@@ -2,13 +2,11 @@ import { Router } from 'express';
 import UserController from './controllers/UserController';
 import MeetingController from './controllers/MeetingController';
 import PrivateNotesController from './controllers/PrivateNotesController';
-import SessionController from './controllers/SessionController';
 
 const routes = Router();
 
 //routes.get('/users', UserController.index);
 routes.post('/users', UserController.store);
-routes.post('/auth', SessionController.store);
 
 routes.get('/meetings/:userId', MeetingController.index);
 routes.post('/meetings', MeetingController.store);

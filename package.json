@@ -94,7 +94,7 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "pretty-quick --staged",
-      "eslint --fix-dry-run"
+      "eslint --fix"
     ]
   }
 }

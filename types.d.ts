@@ -1,7 +1,14 @@
+export interface ReduxAction {
+  type: string;
+  payload?: any;
+}
+
 export interface User {
-  login: string;
-  score: number;
-  id: string;
+  _id: string | undefined;
+  googleId: string;
+  email: string;
+  name: string;
+  imageUrl: string;
 }
 
 export interface Task {

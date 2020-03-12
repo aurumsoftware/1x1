@@ -92,7 +92,7 @@
     }
   },
   "lint-staged": {
-    "./src/*.{js,jsx,ts,tsx}": [
+    "*.{ts,tsx}": [
       "pretty-quick --staged",
       "eslint --fix-dry-run"
     ]

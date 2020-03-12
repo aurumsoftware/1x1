@@ -6,9 +6,7 @@ import { Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-u
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
-interface Props {}
-
-const Main: React.FC<Props> = () => {
+const Main: React.FC = () => {
   return (
     <Container>
       <Drawer variant="permanent" anchor="left">

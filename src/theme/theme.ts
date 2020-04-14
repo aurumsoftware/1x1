@@ -13,6 +13,9 @@ export const theme = {
     textSecondary: {
       main: '#DEE2E6',
     },
+    background: {
+      default: '#ffffff',
+    },
   },
   typography: {
     fontSize: 14,

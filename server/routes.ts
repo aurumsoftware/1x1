@@ -9,7 +9,7 @@ const routes = Router();
 routes.post('/users', UserController.store);
 routes.get('/users', UserController.all);
 
-routes.get('/meetings/:userId', MeetingController.index);
+routes.get('/meetings/:firstUserId/:secondUserId', MeetingController.index);
 routes.post('/meetings', MeetingController.store);
 routes.put('/meetings/:id', MeetingController.update);
 routes.delete('/meetings/:id', MeetingController.remove);

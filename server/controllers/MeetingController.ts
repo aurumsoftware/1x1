@@ -3,9 +3,14 @@ import { Meeting } from '../models/Meeting';
 
 class MeetingController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const { userId } = req.params;
+    const { firstUserId, secondUserId } = req.params;
 
-    const meetings = await Meeting.find({ $or: [{ userId1: userId }, { userId2: userId }] });
+    const meetings = await Meeting.find({
+      $or: [
+        { userId1: firstUserId, userId2: secondUserId },
+        { userId1: secondUserId, userId2: firstUserId },
+      ],
+    });
     return res.json(meetings);
   }
 

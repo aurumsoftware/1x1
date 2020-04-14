@@ -45,23 +45,20 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      paddingTop: 88,
-      padding: theme.spacing(3),
     },
   }),
 );
 
 interface DrawerProps {
   container?: any;
-  toolbar: ReactElement;
 }
 
-const Drawer: React.FC<DrawerProps> = ({ container, toolbar, children }) => {
+const Drawer: React.FC<DrawerProps> = ({ container, children }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const handleDrawerToggle = () => {
+  const handleDrawerToggle = (): void => {
     setMobileOpen(!mobileOpen);
   };
 
@@ -86,7 +83,6 @@ const Drawer: React.FC<DrawerProps> = ({ container, toolbar, children }) => {
           >
             <MenuIcon color="primary" />
           </IconButton>
-          {toolbar}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">

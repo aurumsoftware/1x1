@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex: 1;
   justify-content: space-between;
-  padding: ${({ theme }): string => theme.spacings.lg} 0;
+  padding: ${({ theme }): string => theme.spacings.lg};
 `;
 
 export const Title = styled.div`

@@ -3,8 +3,12 @@ import { Container, Title } from './styles';
 import Avatar from '../../../components/Avatar';
 import { Typography, makeStyles, Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import { User } from '../../../../types';
 
-interface Props {}
+interface Props {
+  user: User;
+  count: number;
+}
 
 const useStyles = makeStyles(theme => ({
   meetingsNumber: {
@@ -12,19 +16,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MeetingHeader: React.FC<Props> = () => {
+const MeetingHeader: React.FC<Props> = ({ user, count }) => {
   const classes = useStyles();
 
   return (
     <Container>
       <Title>
-        <Avatar src={`https://robohash.org/oicramps`} />
+        <Avatar src={user.imageUrl} />
         <div>
           <Typography variant="subtitle1" color="secondary">
-            1 x 1 com Ronaldo
+            {`1 x 1 com ${user.name}`}
           </Typography>
           <Typography variant="subtitle2" className={classes.meetingsNumber}>
-            5 conversas
+            {`${count} conversas`}
           </Typography>
         </div>
       </Title>

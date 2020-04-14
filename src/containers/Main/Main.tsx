@@ -15,7 +15,7 @@ const Main: React.FC = () => {
   }, []);
 
   return (
-    <Drawer toolbar={<MeetingHeader />}>
+    <Drawer>
       <MeetingList />
     </Drawer>
   );

@@ -1,4 +1,4 @@
-import { CircularProgress, List, ListItem } from '@material-ui/core';
+import { List } from '@material-ui/core';
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { User } from '../../../types';
@@ -7,7 +7,8 @@ import { setActiveMeeting } from '../../store/ducks/meeting';
 import { getUserInfo } from '../../store/selectors/authSelectors';
 import { getActiveMeetingUser } from '../../store/selectors/meetingSelectors';
 import Avatar from '../Avatar';
-import { Username, ActiveStatus, UserItem } from './styles';
+import Loading from '../Loading';
+import { ActiveStatus, UserItem, Username } from './styles';
 
 const UserList: React.FC = () => {
   const [userList, setUserList] = useState<User[]>([]);
@@ -49,7 +50,7 @@ const UserList: React.FC = () => {
     loadUsers();
   }, [loadUsers]);
 
-  return isLoading ? <CircularProgress /> : <List>{userList.map(mapUserItem)}</List>;
+  return isLoading ? <Loading /> : <List>{userList.map(mapUserItem)}</List>;
 };
 
 export default UserList;

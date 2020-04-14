@@ -59,38 +59,36 @@ const Login: React.FC = () => {
 
   return (
     <Container>
-      <Card>
-        <Content>
-          {isLoading ? (
-            <CircularProgress />
-          ) : (
-            <>
-              <AurumLogo />
-              <InterviewImage />
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <Card>
+          <Content>
+            <AurumLogo />
+            <InterviewImage />
 
-              <Description variant="subtitle2" color="secondary">
-                Crie pautas e registre suas reuniões 1 x 1 da empresa
-              </Description>
+            <Description variant="subtitle2" color="secondary">
+              Crie pautas e registre suas reuniões 1 x 1 da empresa
+            </Description>
 
-              <GoogleLogin
-                clientId={CLIENT_ID}
-                render={renderProps => (
-                  <>
-                    <LoginButton color="secondary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                      <GoogleLogo />
-                      <LoginLabel>Logar com seu email Aurum</LoginLabel>
-                    </LoginButton>
-                  </>
-                )}
-                buttonText="Login"
-                onSuccess={handleSuccess}
-                onFailure={handleError}
-                cookiePolicy={'single_host_origin'}
-              />
-            </>
-          )}
-        </Content>
-      </Card>
+            <GoogleLogin
+              clientId={CLIENT_ID}
+              render={renderProps => (
+                <>
+                  <LoginButton color="secondary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                    <GoogleLogo />
+                    <LoginLabel>Logar com seu email Aurum</LoginLabel>
+                  </LoginButton>
+                </>
+              )}
+              buttonText="Login"
+              onSuccess={handleSuccess}
+              onFailure={handleError}
+              cookiePolicy={'single_host_origin'}
+            />
+          </Content>
+        </Card>
+      )}
     </Container>
   );
 };

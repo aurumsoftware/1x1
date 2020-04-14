@@ -8,6 +8,7 @@ import { User } from '../../../../types';
 interface Props {
   user: User;
   count: number;
+  onClickCreateAction: () => void;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -16,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MeetingHeader: React.FC<Props> = ({ user, count }) => {
+const MeetingHeader: React.FC<Props> = ({ user, count, onClickCreateAction }) => {
   const classes = useStyles();
 
   return (
@@ -32,7 +33,7 @@ const MeetingHeader: React.FC<Props> = ({ user, count }) => {
           </Typography>
         </div>
       </Title>
-      <Fab size="medium" color="primary" aria-label="add">
+      <Fab size="medium" color="primary" aria-label="add" onClick={onClickCreateAction}>
         <AddIcon fontSize="large" />
       </Fab>
     </Container>

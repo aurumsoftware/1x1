@@ -10,9 +10,9 @@ class UserController {
 
   public async store(req: Request, res: Response): Promise<Response> {
     const { email } = req.body;
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      return res.status(403).json({ error: 'User already exists' });
+    const currentUser = await User.findOne({ email });
+    if (currentUser) {
+      return res.json(currentUser);
     }
 
     const user = await User.create(req.body);

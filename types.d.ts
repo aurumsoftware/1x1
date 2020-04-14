@@ -4,11 +4,13 @@ export interface ReduxAction {
 }
 
 export interface User {
-  _id: string | undefined;
   googleId: string;
   email: string;
   name: string;
   imageUrl: string;
+  _id?: string;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
 }
 
 export interface Task {

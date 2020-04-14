@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 export const Container = styled.div`
-  padding: ${({ theme }): string => `${theme.spacings.lg} ${theme.spacings.md}`};
+  padding: ${({ theme }): string => `${theme.spacings.lg} 6px`};
   display: flex;
   align-items: center;
 `;

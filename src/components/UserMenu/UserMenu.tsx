@@ -2,7 +2,7 @@ import { IconButton, Menu, MenuItem, Typography, Fade } from '@material-ui/core'
 import React from 'react';
 import { GoogleLogout } from 'react-google-login';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserInfo } from '../../selectors/authSelectors';
+import { getUserInfo } from '../../store/selectors/authSelectors';
 import Avatar from '../Avatar';
 import { Container, NameAndOptions, Options } from './styles';
 import { logout } from '../../store/ducks/auth';

@@ -1,11 +1,10 @@
 import { IconButton, Menu, MenuItem, Typography, Fade } from '@material-ui/core';
-import ExpandMore from '@material-ui/icons/ExpandMore';
 import React from 'react';
 import { GoogleLogout } from 'react-google-login';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserInfo } from '../../selectors/authSelectors';
 import Avatar from '../Avatar';
-import { Container, NameAndOptions } from './styles';
+import { Container, NameAndOptions, Options } from './styles';
 import { logout } from '../../store/ducks/auth';
 import useLocalStorage from '../../hooks';
 import { useHistory } from 'react-router-dom';
@@ -58,7 +57,7 @@ const UserMenu: React.FC = () => {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          <ExpandMore />
+          <Options />
         </IconButton>
         <Menu
           id="simple-menu"

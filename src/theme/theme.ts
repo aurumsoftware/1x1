@@ -18,6 +18,7 @@ export const theme = {
     },
   },
   typography: {
+    fontFamily: 'MuseoSans',
     fontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,
@@ -32,21 +33,24 @@ export const theme = {
       xxl: '35px',
     },
     h6: {
+      fontFamily: 'MuseoSans700',
       fontWeight: 700,
       fontSize: '16px',
       lineHeight: '24px',
     },
     subtitle1: {
+      fontFamily: 'MuseoSans700',
       fontWeight: 700,
       fontSize: '20px',
       lineHeight: '24px',
     },
     subtitle2: {
+      fontFamily: 'MuseoSans500',
       fontWeight: 500,
-      fontSize: '14px',
-      lineHeight: '20px',
+      fontSize: '16px',
+      lineHeight: '24px',
     },
-    caption: { fontWeight: 700, fontSize: '12px', lineHeight: '14px' },
+    caption: { fontFamily: 'MuseoSans700', fontWeight: 700, fontSize: '12px', lineHeight: '14px' },
   },
   spacings: {
     xs: '8px',

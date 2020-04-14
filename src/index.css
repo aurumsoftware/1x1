@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'MuseoSans';
+  src: local('MuseoSans'), url(./fonts/MuseoSans_300.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'MuseoSans500';
+  src: local('MuseoSans500'), url(./fonts/MuseoSans_500.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'MuseoSans700';
+  src: local('MuseoSans700'), url(./fonts/MuseoSans_700.otf) format('truetype');
+}

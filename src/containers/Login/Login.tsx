@@ -8,7 +8,7 @@ import useLocalStorage from '../../hooks';
 import { login } from '../../store/ducks/auth';
 import { ReactComponent as GoogleLogo } from '../../svgs/googleLogo.svg';
 import { AurumLogo, Container, Content, Description, InterviewImage, LoginButton, LoginLabel } from './styles';
-import authService from '../../services/authService';
+import userService from '../../services/userService';
 import { CircularProgress } from '@material-ui/core';
 
 const CLIENT_ID: string = process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
@@ -37,7 +37,7 @@ const Login: React.FC = () => {
 
     try {
       setIsLoading(true);
-      const user = await authService.authenticate(userToAuth);
+      const user = await userService.authenticate(userToAuth);
 
       setUserInfo({ accessToken, user });
       dispatchAndGo(accessToken, user);

@@ -51,6 +51,10 @@ export const theme = {
       lineHeight: '24px',
     },
     caption: { fontFamily: 'MuseoSans700', fontWeight: 700, fontSize: '12px', lineHeight: '14px' },
+    button: {
+      fontFamily: 'MuseoSans700',
+      fontWeight: 700,
+    },
   },
   spacings: {
     xs: '8px',

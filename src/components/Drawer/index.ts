@@ -1,3 +1,3 @@
-import ResponsiveDrawer from './ResponsiveDrawer';
+import Drawer from './Drawer';
 
-export default ResponsiveDrawer;
+export default Drawer;

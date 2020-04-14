@@ -1,22 +1,22 @@
-import React, { ReactElement } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
+import MaterialDrawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import React, { ReactElement } from 'react';
+import UserMenu from '../UserMenu';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,12 +56,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface ResponsiveDrawerProps {
+interface DrawerProps {
   container?: any;
   toolbar: ReactElement;
 }
 
-const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = ({ container, toolbar, children }) => {
+const Drawer: React.FC<DrawerProps> = ({ container, toolbar, children }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -72,7 +72,7 @@ const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = ({ container, toolbar,
 
   const drawer = (
     <div>
-      <div className={classes.toolbar}>Usuário logado</div>
+      <UserMenu />
       <Divider />
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -113,7 +113,7 @@ const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = ({ container, toolbar,
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
         <Hidden smUp implementation="css">
-          <Drawer
+          <MaterialDrawer
             container={container}
             variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
@@ -127,10 +127,10 @@ const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = ({ container, toolbar,
             }}
           >
             {drawer}
-          </Drawer>
+          </MaterialDrawer>
         </Hidden>
         <Hidden xsDown implementation="css">
-          <Drawer
+          <MaterialDrawer
             classes={{
               paper: classes.drawerPaper,
             }}
@@ -138,7 +138,7 @@ const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = ({ container, toolbar,
             open
           >
             {drawer}
-          </Drawer>
+          </MaterialDrawer>
         </Hidden>
       </nav>
       <main className={classes.content}>{children}</main>
@@ -146,4 +146,4 @@ const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = ({ container, toolbar,
   );
 };
 
-export default ResponsiveDrawer;
+export default Drawer;

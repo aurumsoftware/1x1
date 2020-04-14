@@ -7,8 +7,7 @@ import Card from '../../components/Card';
 import useLocalStorage from '../../hooks';
 import { login } from '../../store/ducks/auth';
 import { ReactComponent as GoogleLogo } from '../../svgs/googleLogo.svg';
-import { Container, LoginButton, LoginLabel, Content, AurumLogo, InterviewImage, Description } from './styles';
-import { Typography } from '@material-ui/core';
+import { AurumLogo, Container, Content, Description, InterviewImage, LoginButton, LoginLabel } from './styles';
 
 const CLIENT_ID: string = process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
 
@@ -23,6 +22,8 @@ const Login: React.FC = () => {
   };
 
   const handleSuccess = ({ accessToken, profileObj: { googleId, imageUrl, email, name } }: any): void => {
+    console.log('accessToken', accessToken);
+
     const user: User = {
       _id: undefined,
       googleId,
@@ -58,7 +59,6 @@ const Login: React.FC = () => {
             clientId={CLIENT_ID}
             render={renderProps => (
               <>
-                {console.log('renderProps', renderProps)}
                 <LoginButton color="secondary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
                   <GoogleLogo />
                   <LoginLabel>Logar com seu email Aurum</LoginLabel>

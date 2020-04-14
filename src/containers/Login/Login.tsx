@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import GoogleLogin from 'react-google-login';
-import { Button } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/ducks/auth';
+import { useHistory } from 'react-router-dom';
 import { User } from '../../../types';
+import Card from '../../components/Card';
 import useLocalStorage from '../../hooks';
+import { login } from '../../store/ducks/auth';
+import { ReactComponent as GoogleLogo } from '../../svgs/googleLogo.svg';
+import { Container, LoginButton, LoginLabel, Content, AurumLogo, InterviewImage, Description } from './styles';
+import { Typography } from '@material-ui/core';
 
 const CLIENT_ID: string = process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
 
@@ -41,23 +44,35 @@ const Login: React.FC = () => {
   }, [userInfo, dispatchAndGo]);
 
   return (
-    <div>
-      <GoogleLogin
-        clientId={CLIENT_ID}
-        render={renderProps => (
-          <>
-            {console.log('renderProps', renderProps)}
-            <Button color="primary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
-              Entrar com sua conta Google
-            </Button>
-          </>
-        )}
-        buttonText="Login"
-        onSuccess={handleSuccess}
-        onFailure={handleError}
-        cookiePolicy={'single_host_origin'}
-      />
-    </div>
+    <Container>
+      <Card>
+        <Content>
+          <AurumLogo />
+          <InterviewImage />
+
+          <Description variant="subtitle2" color="secondary">
+            Crie pautas e registre suas reuniões 1 x 1 da empresa
+          </Description>
+
+          <GoogleLogin
+            clientId={CLIENT_ID}
+            render={renderProps => (
+              <>
+                {console.log('renderProps', renderProps)}
+                <LoginButton color="secondary" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                  <GoogleLogo />
+                  <LoginLabel>Logar com seu email Aurum</LoginLabel>
+                </LoginButton>
+              </>
+            )}
+            buttonText="Login"
+            onSuccess={handleSuccess}
+            onFailure={handleError}
+            cookiePolicy={'single_host_origin'}
+          />
+        </Content>
+      </Card>
+    </Container>
   );
 };
 

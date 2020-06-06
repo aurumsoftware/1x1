@@ -17,7 +17,7 @@ const MeetingItem: React.FC<Props> = ({ meeting, editing = false }) => {
   return (
     <Container>
       {isEditing ? (
-        <MeetingEditItem meeting={meeting} onFinish={handleToggleIsEditing} />
+        <MeetingEditItem meeting={meeting} onCancel={handleToggleIsEditing} />
       ) : (
         <MeetingDisplayItem meeting={meeting} onEdit={handleToggleIsEditing} />
       )}

@@ -27,6 +27,14 @@ const Meetings: React.FC = () => {
     }
   };
 
+  const handleCreate = (): void => {
+    setIsCreating(true);
+  };
+
+  const handleFormCancel = (): void => {
+    setIsCreating(false);
+  };
+
   console.log('isCreating', isCreating);
 
   useEffect(() => {
@@ -35,12 +43,8 @@ const Meetings: React.FC = () => {
 
   return (
     <>
-      <MeetingHeader
-        user={activeMeetingUser}
-        count={meetings.length}
-        onClickCreateAction={(): void => setIsCreating(true)}
-      />
-      {isCreating && <MeetingEditItem onFinish={console.log} />}
+      <MeetingHeader user={activeMeetingUser} count={meetings.length} onClickCreateAction={handleCreate} />
+      {isCreating && <MeetingEditItem onCancel={handleFormCancel} />}
       {isLoading ? <Loading /> : <MeetingList meetings={meetings} />}
     </>
   );

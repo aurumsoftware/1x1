@@ -9,10 +9,10 @@ import { Actions, Divider } from './styles';
 
 interface Props {
   meeting?: Meeting;
-  onFinish: () => void;
+  onCancel: () => void;
 }
 
-const MeetingEditItem: React.FC<Props> = ({ meeting, onFinish }) => {
+const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
   const buildInitialValues = (): Meeting =>
     meeting || {
       _id: undefined,
@@ -44,7 +44,7 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onFinish }) => {
         <DateField date={new Date(values.meetingDate)} onChange={(): void => console.log('batata')} />
         <Divider />
         <Actions>
-          <Button color="secondary" onClick={onFinish}>
+          <Button color="secondary" onClick={onCancel}>
             Cancelar
           </Button>
           <Button type="submit" color="primary">

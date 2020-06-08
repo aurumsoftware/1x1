@@ -23,12 +23,16 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
       userId2: '2',
     };
 
-  const { handleSubmit, handleChange, values } = useFormik({
+  const { handleSubmit, handleChange, setFieldValue, values } = useFormik({
     initialValues: buildInitialValues(),
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+
+  const handleChangeDate = (date: Date): void => {
+    setFieldValue('meetingDate', date);
+  };
 
   return (
     <Card>
@@ -41,7 +45,7 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
           onChange={handleChange}
           value={values.meetingTitle}
         />
-        <DateField date={new Date(values.meetingDate)} onChange={(): void => console.log('batata')} />
+        <DateField date={new Date(values.meetingDate)} onChange={handleChangeDate} />
         <Divider />
         <Actions>
           <Button color="secondary" onClick={onCancel}>

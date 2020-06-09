@@ -1,4 +1,4 @@
-import React, { useMemo, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { Typography, IconButton } from '@material-ui/core';
 import { format } from 'date-fns';
 import CalendarIcon from '@material-ui/icons/CalendarToday';

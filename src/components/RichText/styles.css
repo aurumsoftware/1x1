@@ -6,11 +6,11 @@
   display: block;
   border-width: 0px;
   padding: 5px 0;
-  margin-left: -10px;
+  margin-left: -6px;
 }
 
 .ql-editor {
   font-family: 'MuseoSans';
   font-size: 14px;
-  padding: 10px 0;
+  padding: 10px 3px;
 }

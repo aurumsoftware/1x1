@@ -4,6 +4,7 @@ import React from 'react';
 import { Meeting } from '../../../../../../types';
 import Card from '../../../../../components/Card';
 import DateField from '../../../../../components/DateField';
+import RichText from '../../../../../components/RichText';
 import TextInput from '../../../../../components/TextInput';
 import { Actions, Divider } from './styles';
 
@@ -34,6 +35,10 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
     setFieldValue('meetingDate', date);
   };
 
+  const handleChangeDescription = (value: string): void => {
+    setFieldValue('description', value);
+  };
+
   return (
     <Card>
       <form onSubmit={handleSubmit}>
@@ -47,6 +52,8 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
         />
         <DateField date={new Date(values.meetingDate)} onChange={handleChangeDate} />
         <Divider />
+        <RichText value={values.description} onChange={handleChangeDescription}></RichText>
+
         <Actions>
           <Button color="secondary" onClick={onCancel}>
             Cancelar

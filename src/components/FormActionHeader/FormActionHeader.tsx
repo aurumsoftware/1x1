@@ -11,7 +11,9 @@ interface Props {
 const FormActionHeader: React.FC<Props> = ({ title, actionIcon, onClick }) => {
   return (
     <Container>
-      <Typography variant="h6">{title}</Typography>
+      <Typography color="textSecondary" variant="h6">
+        {title}
+      </Typography>
       <IconButton onClick={onClick} aria-label="date" size="small" disableFocusRipple>
         {actionIcon}
       </IconButton>

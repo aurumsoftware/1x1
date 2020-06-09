@@ -51,9 +51,9 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
           value={values.meetingTitle}
         />
         <DateField date={new Date(values.meetingDate)} onChange={handleChangeDate} />
-        <Divider />
         <RichText value={values.description} onChange={handleChangeDescription}></RichText>
-
+        <Divider />
+        <Divider />
         <Actions>
           <Button color="secondary" onClick={onCancel}>
             Cancelar

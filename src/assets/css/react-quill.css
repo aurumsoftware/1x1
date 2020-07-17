@@ -1,0 +1,14 @@
+.app .ql-toolbar.ql-snow button:hover,
+.app .ql-toolbar.ql-snow button.ql-active {
+  color: #028836;
+} 
+
+.app .ql-snow.ql-toolbar button:hover .ql-stroke,
+.app .ql-snow.ql-toolbar button.ql-active .ql-stroke {
+  stroke: #028836;
+}
+
+.app .ql-snow.ql-toolbar button:hover .ql-fill,
+.app .ql-snow.ql-toolbar button.ql-active .ql-fill {
+  fill: #028836;
+}

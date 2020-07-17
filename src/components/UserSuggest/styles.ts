@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PersonAdd from '@material-ui/icons/PersonAdd';
 
 export const Container = styled.div`
-  padding: 12px 16px;
+  padding: 12px 16px 12px 28px;
   background: ${({ theme }): string => theme.palette.gray.gray100};
   align-items: center;
   display: flex;
@@ -35,9 +35,18 @@ export const SuggestionContainer = styled.div`
   z-index: 1;
   position: absolute;
   width: 100%;
+
+  ul {
+    list-style: none;
+    padding-left: 0; 
+  }
+
+  li {
+    cursor: pointer;
+  }
 `;
 
 export const SuggestionItem = styled(Typography)`
-  padding: 12px;
+  padding: 12px 16px;
   color: ${({ theme }): string => theme.palette.secondary.dark};
 `;

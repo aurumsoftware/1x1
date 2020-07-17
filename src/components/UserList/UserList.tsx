@@ -10,6 +10,7 @@ import Avatar from '../Avatar';
 import Loading from '../Loading';
 import { ActiveStatus, UserItem, Username } from './styles';
 import UserSuggest from '../UserSuggest';
+import userMeetingsService from '../../services/userMeetingsService';
 
 const UserList: React.FC = () => {
   const [userList, setUserList] = useState<User[]>([]);
@@ -28,10 +29,9 @@ const UserList: React.FC = () => {
   const loadUsers = useCallback(async () => {
     try {
       setIsLoading(true);
-      const users = await userService.all();
-      const filteredUsers = users.filter((user: User) => user._id !== loggedUserId);
-      setUserList(sortUsers(filteredUsers));
-      if (users.length) dispatch(setActiveMeeting(filteredUsers[0]));
+      const users = await userMeetingsService.listMeetingUsers(loggedUserId);
+      setUserList(sortUsers(users));
+      if (users.length) dispatch(setActiveMeeting(users[0]));
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -64,7 +64,7 @@ const UserList: React.FC = () => {
     <Loading />
   ) : (
     <List>
-      <UserSuggest suggestionsData={userList} onClick={handleSelectMeeting} />
+      <UserSuggest onClick={handleSelectMeeting} />
 
       {userList.map(mapUserItem)}
     </List>

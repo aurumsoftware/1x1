@@ -10,13 +10,10 @@ interface Props {
 
 const RichText: React.FC<Props> = ({ value, onChange }) => {
   const modules = {
-    toolbar: [
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-    ],
+    toolbar: [['bold', 'italic', 'underline', 'strike', { list: 'ordered' }, { list: 'bullet' }, 'blockquote']],
   };
 
-  const formats = ['bold', 'italic', 'underline', 'strike', 'blockquote', 'list', 'bullet'];
+  const formats = ['bold', 'italic', 'underline', 'strike', 'list', 'bullet', 'blockquote'];
 
   return (
     <ReactQuill

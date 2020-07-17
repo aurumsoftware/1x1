@@ -1,18 +1,39 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect, useCallback } from 'react';
 import Autosuggest from 'react-autosuggest';
 import { User } from '../../../types';
+import { useSelector } from 'react-redux';
+import { getUserInfo } from '../../store/selectors/authSelectors';
+import userService from '../../services/userService';
 
 import { StyledInput, Container, StyledPersonAdd, SuggestionContainer, SuggestionItem } from './styles';
 
 interface Props {
-  suggestionsData: User[];
   onClick(user: User): void;
 }
 
-const UserSuggest: React.FC<Props> = ({ suggestionsData, onClick }) => {
-  const [suggestions, setSuggestions] = useState<User[]>(suggestionsData);
+
+const UserSuggest: React.FC<Props> = ({ onClick }) => {
+  const { _id: loggedUserId } = useSelector(getUserInfo);
+  const [usersList, setUsersList] = useState<User[]>([]);
+  const [usersSuggestions, setUserSuggestions] = useState<User[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState('');
+
+  const loadUsers = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const users = await userService.all();
+      const filteredUsers = users.filter((user: User) => user._id !== loggedUserId);
+      setUsersList(filteredUsers);
+    } catch (error) {
+    }finally{
+      setIsLoading(false);
+    }
+  }, [loggedUserId]);
+
+  useEffect(() => {
+    loadUsers()
+  },[loadUsers]);
 
   const getSuggestionValue = (suggestion: User): string => {
     onClick(suggestion);
@@ -24,21 +45,22 @@ const UserSuggest: React.FC<Props> = ({ suggestionsData, onClick }) => {
   };
 
   const handleSuggestionFetch = ({ value }: { value: string }): void => {
-    setSuggestions(suggestionsData);
-
     if (value.length >= 1) {
-      const suggestionFilter = suggestionsData.filter(userEmail => {
-        return userEmail.email.toLowerCase().includes(value.toLowerCase());
+      console.log({value})
+      const suggestionFilter = usersList.filter(user => {
+        return user.email.toLowerCase().includes(value.toLowerCase());
       });
 
+      console.log({suggestionFilter})
+
       if (!!suggestionFilter) {
-        setSuggestions(suggestionFilter);
+        setUserSuggestions(suggestionFilter);
       }
     }
   };
 
   const handleSuggestionClear = (): void => {
-    setSuggestions([]);
+    setUserSuggestions([]);
   };
 
   const renderInputComponent = (inputProps: any) => (
@@ -55,8 +77,8 @@ const UserSuggest: React.FC<Props> = ({ suggestionsData, onClick }) => {
   };
 
   return (
-    <Autosuggest
-      suggestions={suggestions}
+    isLoading ? <h1>Carregando...</h1> : <Autosuggest
+      suggestions={usersSuggestions}
       onSuggestionsFetchRequested={handleSuggestionFetch}
       onSuggestionsClearRequested={handleSuggestionClear}
       getSuggestionValue={getSuggestionValue}

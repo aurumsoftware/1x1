@@ -36,6 +36,7 @@ const CheckListItem: React.FC<Props> = ({ task, index, onChange, onRemove }) => 
           checkedIcon={<CheckedIcon />}
           name="check-item"
           color="primary"
+          checked={task.checked}
           onChange={handleCheck}
           style={{ padding: 6 }}
         />
@@ -43,7 +44,7 @@ const CheckListItem: React.FC<Props> = ({ task, index, onChange, onRemove }) => 
           id="meetingTitle"
           name="meetingTitle"
           fontSize="sm"
-          placeholder="Digite o título"
+          placeholder="Descreva a atividade"
           value={task.description}
           onChange={handleChangeDescription}
         />

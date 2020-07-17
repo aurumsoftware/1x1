@@ -22,7 +22,6 @@ const UserList: React.FC = () => {
     try {
       setIsLoading(true);
       const users = await userService.all();
-      console.log('users', users);
       const filteredUsers = users.filter((user: User) => user._id !== loggedUserId);
       setUserList(filteredUsers);
       if (users.length) dispatch(setActiveMeeting(filteredUsers[0]));

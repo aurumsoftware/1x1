@@ -12,6 +12,11 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Add from '@material-ui/icons/Add';
 import CheckList from '../../../../../components/CheckList';
+import meetingService from '../../../../../services/meetingService';
+import toast from 'cogo-toast';
+import { useSelector } from 'react-redux';
+import { getUserId } from '../../../../../store/selectors/authSelectors';
+import { getActiveMeetingUserId } from '../../../../../store/selectors/meetingSelectors';
 
 interface Props {
   meeting?: Meeting;
@@ -20,22 +25,33 @@ interface Props {
 
 const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
   const [showingPrivateNotes, setShowingPrivateNotes] = useState<boolean>(false);
+  const userId = useSelector(getUserId);
+  const otherUserId = useSelector(getActiveMeetingUserId);
   const buildInitialValues = (): Meeting =>
     meeting || {
       _id: undefined,
       description: '',
       meetingTitle: '',
       meetingDate: new Date(),
-      userId1: '1',
-      userId2: '2',
+      userId1: userId,
+      userId2: otherUserId,
       checklist: [] as Task[],
     };
 
+  const handleFormSubmit = async (formValues: Meeting): Promise<void> => {
+    try {
+      console.log('formValues', formValues);
+      await (formValues._id ? meetingService.update(formValues, formValues._id) : meetingService.create(formValues));
+      toast.success(`A reunião foi ${formValues._id ? 'alterada' : 'criada'}!`, { position: 'bottom-left' });
+      onCancel();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const { handleSubmit, handleChange, setFieldValue, values } = useFormik({
     initialValues: buildInitialValues(),
-    onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
-    },
+    onSubmit: handleFormSubmit,
   });
 
   const handleChangeDate = (date: Date): void => {
@@ -51,7 +67,7 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
   };
 
   const handleAddTask = (): void => {
-    setFieldValue('checklist', [...values.checklist, { checked: false, description: 'Nova atividade' }]);
+    setFieldValue('checklist', [...values.checklist, { checked: false, description: '' }]);
   };
 
   const handleUpdateTask = (index: number, task?: Task): void => {

@@ -38,7 +38,7 @@ const UserList: React.FC = () => {
     const isActive = user._id === activeMeetingUser._id;
 
     return (
-      <UserItem onClick={(): void => handleSelectMeeting(user)} key={user._id}>
+      <UserItem isActive={isActive} onClick={(): void => handleSelectMeeting(user)} key={user._id}>
         <ActiveStatus isActive={isActive} />
         <Avatar src={user.imageUrl}></Avatar>
         <Username isActive={isActive}>{user.name}</Username>

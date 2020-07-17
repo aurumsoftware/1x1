@@ -23,6 +23,6 @@ export const ActiveStatus = styled.div<ActiveProps>`
       : 'padding-left: 6px'}
 `;
 
-export const UserItem = styled(ListItem).attrs({ button: true })`
-  padding: ${({ theme }): string => theme.spacings.xs} 0;
+export const UserItem = styled(ListItem).attrs({ button: true })<ActiveProps>`
+  padding: ${({ theme, isActive }): string => (isActive ? 0 : theme.spacings.xs)} 0;
 `;

@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
+        display: 'none',
       },
     },
     menuButton: {
@@ -45,6 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
+      marginLeft: theme.spacing(4),
     },
   }),
 );

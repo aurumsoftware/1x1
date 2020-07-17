@@ -20,7 +20,7 @@ export interface Task {
 
 export interface Meeting {
   _id: string | undefined;
-  checklist?: Task[];
+  checklist: Task[] = [];
   meetingTitle: string;
   meetingDate: string | Date;
   description: string;
@@ -37,6 +37,8 @@ export interface PrivateNote {
   description: string;
 }
 
-export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
-export type Color = 'primary' | 'secondary';
+export type FontWeight = 'light' | 'regular' | 'medium' | 'bold';
+
+export type Color = 'primary' | 'secondary' | 'error' | 'success';

@@ -1,5 +1,5 @@
 import { IconButton, Typography } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import React from 'react';
 import { Meeting, Task } from '../../../../../../types';
 import Card from '../../../../../components/Card';
@@ -31,7 +31,7 @@ const MeetingDisplayItem: React.FC<Props> = ({ meeting, onEdit }) => {
           </Header>
           <DateField date={new Date(meetingDate)} />
         </div>
-        <IconButton color="secondary" aria-label="delete">
+        <IconButton color="primary" aria-label="delete">
           <DeleteIcon />
         </IconButton>
       </Content>

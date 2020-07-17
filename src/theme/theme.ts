@@ -16,6 +16,9 @@ export const theme = {
     background: {
       default: '#ffffff',
     },
+    gray: {
+      gray100: '#F1F3F4',
+    },
   },
   typography: {
     fontFamily: 'MuseoSans',
@@ -31,6 +34,12 @@ export const theme = {
       lg: '18px',
       xl: '20px',
       xxl: '35px',
+    },
+    fontWeight: {
+      light: 300,
+      regular: 400,
+      medium: 500,
+      bold: 700,
     },
     h6: {
       fontFamily: 'MuseoSans700',

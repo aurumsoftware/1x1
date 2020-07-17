@@ -1,11 +1,11 @@
 import React from 'react';
-import { LoadingContainer } from './styles';
+import { LoadingContainer, LoadingProps } from './styles';
 import { CircularProgress } from '@material-ui/core';
 
-const Loading: React.FC = () => {
+const Loading: React.FC<LoadingProps> = ({ size = 40, noMargin }) => {
   return (
-    <LoadingContainer>
-      <CircularProgress />
+    <LoadingContainer noMargin={noMargin}>
+      <CircularProgress size={size} />
     </LoadingContainer>
   );
 };

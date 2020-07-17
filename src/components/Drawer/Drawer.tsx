@@ -16,6 +16,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+      maxWidth: '1000px',
+      margin: '0 auto',
     },
     drawer: {
       [theme.breakpoints.up('sm')]: {
@@ -43,6 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       width: drawerWidth,
       border: 0,
+      left: 'unset',
     },
     content: {
       flexGrow: 1,

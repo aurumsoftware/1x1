@@ -22,6 +22,7 @@ const UserList: React.FC = () => {
     try {
       setIsLoading(true);
       const users = await userService.all();
+      console.log('users', users);
       const filteredUsers = users.filter((user: User) => user._id !== loggedUserId);
       setUserList(filteredUsers);
       if (users.length) dispatch(setActiveMeeting(filteredUsers[0]));
@@ -37,6 +38,8 @@ const UserList: React.FC = () => {
 
   const mapUserItem = (user: User): ReactElement => {
     const isActive = user._id === activeMeetingUser._id;
+
+    console.log('avatar', user.imageUrl);
 
     return (
       <UserItem isActive={isActive} onClick={(): void => handleSelectMeeting(user)} key={user._id}>

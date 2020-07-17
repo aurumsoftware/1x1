@@ -35,6 +35,12 @@ export const theme = {
       xl: '20px',
       xxl: '35px',
     },
+    fontWeight: {
+      light: 300,
+      regular: 400,
+      medium: 500,
+      bold: 700,
+    },
     h6: {
       fontFamily: 'MuseoSans700',
       fontWeight: 700,

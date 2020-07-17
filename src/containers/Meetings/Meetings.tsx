@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Meeting } from '../../../types';
 import Loading from '../../components/Loading';
@@ -16,7 +16,7 @@ const Meetings: React.FC = () => {
   const loggedUser = useSelector(getUserInfo);
   const activeMeetingUser = useSelector(getActiveMeetingUser);
 
-  const fetchMeetings = async (): Promise<void> => {
+  const fetchMeetings = useCallback(async (): Promise<void> => {
     try {
       setIsLoading(true);
       const meetings = await meetingService.list(loggedUser._id, activeMeetingUser._id);
@@ -25,7 +25,7 @@ const Meetings: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [activeMeetingUser._id, loggedUser._id]);
 
   const handleCreate = (): void => {
     setIsCreating(true);
@@ -39,7 +39,7 @@ const Meetings: React.FC = () => {
 
   useEffect(() => {
     fetchMeetings();
-  }, [activeMeetingUser._id]);
+  }, [activeMeetingUser._id, fetchMeetings]);
 
   return (
     <>

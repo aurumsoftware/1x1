@@ -11,7 +11,7 @@ const Main: React.FC = () => {
 
   useEffect(() => {
     if (!accessToken) history.push('/login');
-  }, []);
+  }, [accessToken, history]);
 
   return (
     <Drawer>

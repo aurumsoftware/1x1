@@ -18,18 +18,25 @@ const UserList: React.FC = () => {
   const dispatch = useDispatch();
   const activeMeetingUser = useSelector(getActiveMeetingUser);
 
+  const orderArrayByString = (a: string, b: string): number => a.localeCompare(b);
+
+  const sortUsers = useCallback(
+    (users: User[]): User[] => users.sort((a, b) => orderArrayByString(a.name, b.name)),
+    [],
+  );
+
   const loadUsers = useCallback(async () => {
     try {
       setIsLoading(true);
       const users = await userService.all();
       const filteredUsers = users.filter((user: User) => user._id !== loggedUserId);
-      setUserList(filteredUsers);
+      setUserList(sortUsers(filteredUsers));
       if (users.length) dispatch(setActiveMeeting(filteredUsers[0]));
     } catch (error) {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [dispatch, loggedUserId, sortUsers]);
 
   const handleSelectMeeting = (user: User): void => {
     dispatch(setActiveMeeting(user));

@@ -1,4 +1,4 @@
-import { Card, CardActionArea } from '@material-ui/core';
+import { Card } from '@material-ui/core';
 import styled from 'styled-components';
 
 interface Props {

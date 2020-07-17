@@ -40,6 +40,15 @@ const UserList: React.FC = () => {
     }
   }, [dispatch, loggedUserId, sortUsers]);
 
+  const handleSelectUser = (user: User): void => {
+    const existsUser = userList.find(listUser => listUser._id === user._id); 
+    if(!existsUser) {
+      setUserList([...userList, user]);
+    }
+       
+    handleSelectMeeting(user);
+  }
+
   const handleSelectMeeting = (user: User): void => {
     dispatch(setActiveMeeting(user));
   };
@@ -65,7 +74,7 @@ const UserList: React.FC = () => {
   ) : (
     <>
       <SearchContainer>
-        <UserSuggest onClick={handleSelectMeeting} />
+        <UserSuggest onClick={handleSelectUser} />
       </SearchContainer>
       
       <List>

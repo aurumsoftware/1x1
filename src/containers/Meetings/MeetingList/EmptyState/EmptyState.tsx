@@ -10,7 +10,7 @@ const EmptyState: React.FC<Props> = ({ onClickAdd }) => {
   return (
     <EmptyStateContainer>
       <EmptyStateImage />
-      <Typography variant="h6" color="secondary">
+      <Typography variant="subtitle1" color="secondary">
         Parece meio vazio aqui...
       </Typography>
       <Typography align="center" variant="subtitle2" color="textSecondary">

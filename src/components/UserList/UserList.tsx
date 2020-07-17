@@ -45,8 +45,6 @@ const UserList: React.FC = () => {
   const mapUserItem = (user: User): ReactElement => {
     const isActive = user._id === activeMeetingUser._id;
 
-    console.log('avatar', user.imageUrl);
-
     return (
       <UserItem isActive={isActive} onClick={(): void => handleSelectMeeting(user)} key={user._id}>
         <ActiveStatus isActive={isActive} />

@@ -37,6 +37,7 @@ const CheckListItem: React.FC<Props> = ({ task, index, onChange, onRemove }) => 
           name="check-item"
           color="primary"
           onChange={handleCheck}
+          style={{ padding: 6 }}
         />
         <TextInput
           id="meetingTitle"
@@ -48,7 +49,7 @@ const CheckListItem: React.FC<Props> = ({ task, index, onChange, onRemove }) => 
         />
       </FieldContainer>
 
-      <IconButton color="primary" aria-label="delete" onClick={handleRemove}>
+      <IconButton color="primary" aria-label="delete" style={{ padding: 6 }} onClick={handleRemove}>
         <DeleteOutlineIcon />
       </IconButton>
     </ItemContainer>

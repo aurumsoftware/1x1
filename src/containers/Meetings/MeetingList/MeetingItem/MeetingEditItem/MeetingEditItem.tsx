@@ -71,6 +71,8 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
         <TextInput
           id="meetingTitle"
           name="meetingTitle"
+          fontSize="md"
+          fontWeight="bold"
           placeholder="Digite o título"
           onChange={handleChange}
           value={values.meetingTitle}

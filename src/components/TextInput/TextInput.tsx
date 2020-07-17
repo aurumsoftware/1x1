@@ -1,7 +1,7 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { StyledInput, TextInputProps } from './styles';
 
-const TextInput: React.FC<TextInputProps> = ({ id, name, fontSize, onChange, value, placeholder }) => {
+const TextInput: React.FC<TextInputProps> = ({ id, name, fontSize, fontWeight, onChange, value, placeholder }) => {
   return (
     <StyledInput
       id={id}
@@ -10,6 +10,7 @@ const TextInput: React.FC<TextInputProps> = ({ id, name, fontSize, onChange, val
       value={value}
       placeholder={placeholder}
       fontSize={fontSize}
+      fontWeight={fontWeight}
     ></StyledInput>
   );
 };

@@ -55,7 +55,7 @@ const UserList: React.FC = () => {
     <Loading />
   ) : (
     <List>
-      <UserSuggest suggestionsData={userList} />
+      <UserSuggest suggestionsData={userList} onClick={handleSelectMeeting} />
 
       {userList.map(mapUserItem)}
     </List>

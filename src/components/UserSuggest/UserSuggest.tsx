@@ -5,15 +5,19 @@ import { User } from '../../../types';
 
 import { StyledInput, Container, StyledPersonAdd, SuggestionContainer, SuggestionItem } from './styles';
 
-const getSuggestionValue = (suggestion: User): string => suggestion.email;
-
 interface Props {
   suggestionsData: User[];
+  onClick(user: User): void;
 }
 
-const UserSuggest: React.FC<Props> = ({ suggestionsData }) => {
+const UserSuggest: React.FC<Props> = ({ suggestionsData, onClick }) => {
   const [suggestions, setSuggestions] = useState<User[]>(suggestionsData);
   const [searchValue, setSearchValue] = useState('');
+
+  const getSuggestionValue = (suggestion: User): string => {
+    onClick(suggestion);
+    return suggestion.email;
+  };
 
   const onChange = (event: any, { newValue }: any): void => {
     setSearchValue(newValue);

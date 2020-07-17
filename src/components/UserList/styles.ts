@@ -29,5 +29,4 @@ export const UserItem = styled(ListItem).attrs({ button: true })<ActiveProps>`
 
 export const SearchContainer = styled.div`
   margin-bottom: 24px;
-  margin-left: 16px;
 `

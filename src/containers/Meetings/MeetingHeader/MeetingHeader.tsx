@@ -28,8 +28,8 @@ const MeetingHeader: React.FC<Props> = ({ user, count, onClickCreateAction }) =>
           <Typography variant="subtitle1" color="secondary">
             {`1 x 1 com ${user.name}`}
           </Typography>
-          <Typography variant="subtitle2" className={classes.meetingsNumber}>
-            {`${count} conversas`}
+          <Typography variant="h6" className={classes.meetingsNumber}>
+            {count === 0 ? "Nenhuma conversa" : `${count} conversas`}
           </Typography>
         </div>
       </Title>

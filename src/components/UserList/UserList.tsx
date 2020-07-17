@@ -26,17 +26,28 @@ const UserList: React.FC = () => {
     [],
   );
 
-  const loadUsers = useCallback(async () => {
+  const loadUsers = useCallback(async (): Promise<void> => {
     try {
       setIsLoading(true);
       const users = await userMeetingsService.listMeetingUsers(loggedUserId);
-      setUserList(sortUsers(users));
-      if (users.length) dispatch(setActiveMeeting(users[0]));
+      const filteredUsers = users.map((user: User) => ({ ...user, name: user.name.split(/(\s).+\s/).join("") }));
+      setUserList(sortUsers(filteredUsers));
+      if (filteredUsers.length) dispatch(setActiveMeeting(filteredUsers[0]));
     } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
   }, [dispatch, loggedUserId, sortUsers]);
+
+  const handleSelectUser = (user: User): void => {
+    const existsUser = userList.find(listUser => listUser._id === user._id); 
+    if(!existsUser) {
+      setUserList([...userList, user]);
+    }
+       
+    handleSelectMeeting(user);
+  }
 
   const handleSelectMeeting = (user: User): void => {
     dispatch(setActiveMeeting(user));
@@ -63,7 +74,7 @@ const UserList: React.FC = () => {
   ) : (
     <>
       <SearchContainer>
-        <UserSuggest onClick={handleSelectMeeting} />
+        <UserSuggest onClick={handleSelectUser} />
       </SearchContainer>
       
       <List>

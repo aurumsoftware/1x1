@@ -47,7 +47,7 @@ const UserMenu: React.FC = () => {
       <Avatar src={imageUrl}></Avatar>
       <NameAndOptions>
         <Typography variant="subtitle1" color="secondary">
-          {name}
+          {name ? name.split(/(\s).+\s/).join('') : ''}
         </Typography>
         <IconButton
           color="secondary"

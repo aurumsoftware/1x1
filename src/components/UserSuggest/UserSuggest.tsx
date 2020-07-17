@@ -37,7 +37,7 @@ const UserSuggest: React.FC<Props> = ({ onClick }) => {
 
   const getSuggestionValue = (suggestion: User): string => {
     onClick(suggestion);
-    return suggestion.email;
+    return '';
   };
 
   const onChange = (event: any, { newValue }: { newValue: string }): void => {
@@ -47,7 +47,7 @@ const UserSuggest: React.FC<Props> = ({ onClick }) => {
   const handleSuggestionFetch = ({ value }: { value: string }): void => {
     if (value.length >= 1) {
       const suggestionFilter = usersList.filter(user => {
-        return user.email.toLowerCase().includes(value.toLowerCase());
+        return user.name.toLowerCase().includes(value.toLowerCase());
       });
 
       if (!!suggestionFilter) {
@@ -67,7 +67,7 @@ const UserSuggest: React.FC<Props> = ({ onClick }) => {
     </Container>
   );
 
-  const renderSuggestion = (suggestion: User) => <SuggestionItem>{suggestion.email}</SuggestionItem>;
+  const renderSuggestion = (suggestion: User) => <SuggestionItem>{suggestion.name}</SuggestionItem>;
 
   const renderSuggestionsContainer = ({ containerProps, children, query }: RenderSuggestionsContainerParams) => {
     return <SuggestionContainer {...containerProps}>{children}</SuggestionContainer>;

@@ -45,7 +45,7 @@ const Meetings: React.FC = () => {
     <>
       <MeetingHeader user={activeMeetingUser} count={meetings.length} onClickCreateAction={handleCreate} />
       {isCreating && <MeetingEditItem onCancel={handleFormCancel} />}
-      {isLoading ? <Loading /> : <MeetingList meetings={meetings} />}
+      {isLoading ? <Loading /> : <MeetingList meetings={meetings} onAdd={handleCreate} showEmptyState={!isCreating} />}
     </>
   );
 };

@@ -32,6 +32,11 @@ const MeetingDisplayItem: React.FC<Props> = ({ meeting, onEdit }) => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const handleDelete = (): void => {
+    try {
+    } catch (error) {}
+  };
+
   return (
     <Card onClick={onEdit}>
       <Content>

@@ -23,7 +23,7 @@ const DateField: React.FC<Props> = ({ date, onChange }) => {
 
   return (
     <Container>
-      <Typography variant="subtitle2" color="textSecondary">
+      <Typography variant="h6" color="textSecondary">
         {format(date, "dd 'de' MMM, yyyy")}
       </Typography>
       {!!onChange && <DatePicker selected={date} onChange={onChange} customInput={<CustomPicker />}></DatePicker>}

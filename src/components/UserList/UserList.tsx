@@ -25,14 +25,17 @@ const UserList: React.FC = () => {
     [],
   );
 
-  const loadUsers = useCallback(async () => {
+  const loadUsers = useCallback(async (): Promise<void> => {
     try {
       setIsLoading(true);
       const users = await userService.all();
-      const filteredUsers = users.filter((user: User) => user._id !== loggedUserId);
+      const filteredUsers = users
+        .map((user: User) => ({ ...user, name: user.name.split(/(\s).+\s/).join("") }))
+        .filter((user: User) => user._id !== loggedUserId);
       setUserList(sortUsers(filteredUsers));
       if (users.length) dispatch(setActiveMeeting(filteredUsers[0]));
     } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }

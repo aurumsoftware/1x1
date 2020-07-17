@@ -41,10 +41,16 @@ export const theme = {
       medium: 500,
       bold: 700,
     },
-    h6: {
+    h5: {
       fontFamily: 'MuseoSans700',
       fontWeight: 700,
       fontSize: '16px',
+      lineHeight: '24px',
+    },
+    h6: {
+      fontFamily: 'MuseoSans500',
+      fontWeight: 500,
+      fontSize: '14px',
       lineHeight: '24px',
     },
     subtitle1: {

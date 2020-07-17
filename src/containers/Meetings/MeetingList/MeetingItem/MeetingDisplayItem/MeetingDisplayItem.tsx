@@ -38,7 +38,7 @@ const MeetingDisplayItem: React.FC<Props> = ({ meeting, onEdit }) => {
       <Content>
         <div>
           <Header>
-            <Typography variant="h6" color="secondary">
+            <Typography variant="h5" color="secondary">
               {meetingTitle}
             </Typography>
             <Chip color="primary" label={`${doneCount} de ${checklist.length}`} margin />

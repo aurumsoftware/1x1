@@ -28,7 +28,6 @@ const MeetingDisplayItem: React.FC<Props> = ({ meeting, onEdit }) => {
   const doneCount = checklist.reduce(countDoneTasks, 0);
 
   const handleToggleConfirmationModal = (e: any): void => {
-    console.log('objecte', e);
     if (e) e.stopPropagation();
     setIsModalOpen(!isModalOpen);
   };
@@ -55,16 +54,19 @@ const MeetingDisplayItem: React.FC<Props> = ({ meeting, onEdit }) => {
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle id="alert-dialog-slide-title">{"Use Google's location service?"}</DialogTitle>
+          <DialogTitle id="alert-dialog-slide-title">{'Você deseja remover a reunião?'}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Let Google help apps determine location. This means sending anonymous location data to Google, even when
-              no apps are running.
+              Ao remover a reunião, a outra parte também não poderá mais visualizá-la.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button color="primary">Disagree</Button>
-            <Button color="primary">Agree</Button>
+            <Button color="secondary" onClick={handleToggleConfirmationModal}>
+              Cancelar
+            </Button>
+            <Button color="primary" onClick={handleToggleConfirmationModal}>
+              Confirmar
+            </Button>
           </DialogActions>
         </Dialog>
       </Content>

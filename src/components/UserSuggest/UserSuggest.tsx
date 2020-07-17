@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Autosuggest, { RenderSuggestionsContainerParams,  } from 'react-autosuggest';
+import Autosuggest, { RenderSuggestionsContainerParams } from 'react-autosuggest';
 import { User } from '../../../types';
 import { useSelector } from 'react-redux';
 import { getUserInfo } from '../../store/selectors/authSelectors';
 import userService from '../../services/userService';
+import Loading from '../Loading';
 
 import { StyledInput, Container, StyledPersonAdd, SuggestionContainer, SuggestionItem } from './styles';
 
@@ -25,21 +26,21 @@ const UserSuggest: React.FC<Props> = ({ onClick }) => {
       const filteredUsers = users.filter((user: User) => user._id !== loggedUserId);
       setUsersList(filteredUsers);
     } catch (error) {
-    }finally{
+    } finally {
       setIsLoading(false);
     }
   }, [loggedUserId]);
 
   useEffect(() => {
-    loadUsers()
-  },[loadUsers]);
+    loadUsers();
+  }, [loadUsers]);
 
   const getSuggestionValue = (suggestion: User): string => {
     onClick(suggestion);
     return suggestion.email;
   };
 
-  const onChange = (event: any, { newValue }: { newValue: string}): void => {
+  const onChange = (event: any, { newValue }: { newValue: string }): void => {
     setSearchValue(newValue);
   };
 
@@ -72,8 +73,10 @@ const UserSuggest: React.FC<Props> = ({ onClick }) => {
     return <SuggestionContainer {...containerProps}>{children}</SuggestionContainer>;
   };
 
-  return (
-    isLoading ? <h1>Carregando...</h1> : <Autosuggest
+  return isLoading ? (
+    <Loading />
+  ) : (
+    <Autosuggest
       suggestions={usersSuggestions}
       onSuggestionsFetchRequested={handleSuggestionFetch}
       onSuggestionsClearRequested={handleSuggestionClear}

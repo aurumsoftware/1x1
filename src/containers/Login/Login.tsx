@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import GoogleLogin from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -19,10 +19,13 @@ const Login: React.FC = () => {
   const [userInfo, setUserInfo] = useLocalStorage('userInfo', {});
   const [isLoading, setIsLoading] = useState(false);
 
-  const dispatchAndGo = (accessToken: string, user: User): void => {
-    dispatch(login(accessToken, user));
-    history.push('/main');
-  };
+  const dispatchAndGo = useCallback(
+    (accessToken: string, user: User): void => {
+      dispatch(login(accessToken, user));
+      history.push('/main');
+    },
+    [dispatch, history],
+  );
 
   const handleSuccess = async ({
     accessToken,

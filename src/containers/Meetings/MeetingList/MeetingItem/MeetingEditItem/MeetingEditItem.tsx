@@ -12,6 +12,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Add from '@material-ui/icons/Add';
 import CheckList from '../../../../../components/CheckList';
+import Loading from '../../../../../components/Loading';
 import meetingService from '../../../../../services/meetingService';
 import toast from 'cogo-toast';
 import { useSelector } from 'react-redux';
@@ -25,6 +26,7 @@ interface Props {
 
 const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
   const [showingPrivateNotes, setShowingPrivateNotes] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const userId = useSelector(getUserId);
   const otherUserId = useSelector(getActiveMeetingUserId);
   const buildInitialValues = (): Meeting =>
@@ -40,12 +42,14 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
 
   const handleFormSubmit = async (formValues: Meeting): Promise<void> => {
     try {
-      console.log('formValues', formValues);
+      setIsLoading(true);
       await (formValues._id ? meetingService.update(formValues, formValues._id) : meetingService.create(formValues));
       toast.success(`A reunião foi ${formValues._id ? 'alterada' : 'criada'}!`, { position: 'bottom-left' });
-      onCancel();
+      // onCancel();
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -113,9 +117,13 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
           <Button color="secondary" onClick={onCancel}>
             Cancelar
           </Button>
-          <Button type="submit" color="primary">
-            Salvar
-          </Button>
+          {isLoading ? (
+            <Loading size={20} noMargin />
+          ) : (
+            <Button type="submit" color="primary">
+              Salvar
+            </Button>
+          )}
         </Actions>
       </form>
     </Card>

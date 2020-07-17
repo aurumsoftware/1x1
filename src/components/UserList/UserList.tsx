@@ -9,6 +9,7 @@ import { getActiveMeetingUser } from '../../store/selectors/meetingSelectors';
 import Avatar from '../Avatar';
 import Loading from '../Loading';
 import { ActiveStatus, UserItem, Username } from './styles';
+import UserSuggest from '../UserSuggest';
 
 const UserList: React.FC = () => {
   const [userList, setUserList] = useState<User[]>([]);
@@ -53,7 +54,15 @@ const UserList: React.FC = () => {
     loadUsers();
   }, [loadUsers]);
 
-  return isLoading ? <Loading /> : <List>{userList.map(mapUserItem)}</List>;
+  return isLoading ? (
+    <Loading />
+  ) : (
+    <List>
+      <UserSuggest suggestionsData={userList} />
+
+      {userList.map(mapUserItem)}
+    </List>
+  );
 };
 
 export default UserList;

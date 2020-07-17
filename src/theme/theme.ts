@@ -16,6 +16,9 @@ export const theme = {
     background: {
       default: '#ffffff',
     },
+    gray: {
+      gray100: '#F1F3F4',
+    },
   },
   typography: {
     fontFamily: 'MuseoSans',

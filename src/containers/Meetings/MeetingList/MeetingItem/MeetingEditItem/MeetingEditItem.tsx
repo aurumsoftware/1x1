@@ -26,7 +26,7 @@ interface Props {
 
 const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
   const [showingPrivateNotes, setShowingPrivateNotes] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const userId = useSelector(getUserId);
   const otherUserId = useSelector(getActiveMeetingUserId);
   const buildInitialValues = (): Meeting =>
@@ -45,7 +45,7 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
       setIsLoading(true);
       await (formValues._id ? meetingService.update(formValues, formValues._id) : meetingService.create(formValues));
       toast.success(`A reunião foi ${formValues._id ? 'alterada' : 'criada'}!`, { position: 'bottom-left' });
-      // onCancel();
+      onCancel();
     } catch (error) {
       console.error(error);
     } finally {

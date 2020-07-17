@@ -2,6 +2,7 @@ import { Router } from 'express';
 import UserController from './controllers/UserController';
 import MeetingController from './controllers/MeetingController';
 import PrivateNotesController from './controllers/PrivateNotesController';
+import UserMeetingsController from './controllers/UserMeetingsController';
 
 const routes = Router();
 
@@ -19,5 +20,8 @@ routes.get('/private_notes/:userId/meeting/:meetingId', PrivateNotesController.i
 routes.post('/private_notes', PrivateNotesController.store);
 routes.put('/private_notes/:id', PrivateNotesController.update);
 routes.delete('/private_notes/:id', PrivateNotesController.remove);
+
+routes.get('/user_meetings/:userId', UserMeetingsController.index);
+routes.get('/user_meetings/:userId/users', UserMeetingsController.indexMeetingUsers);
 
 export default routes;

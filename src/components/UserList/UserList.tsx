@@ -2,14 +2,15 @@ import { List } from '@material-ui/core';
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { User } from '../../../types';
-import userService from '../../services/userService';
 import { setActiveMeeting } from '../../store/ducks/meeting';
 import { getUserInfo } from '../../store/selectors/authSelectors';
 import { getActiveMeetingUser } from '../../store/selectors/meetingSelectors';
 import Avatar from '../Avatar';
 import Loading from '../Loading';
-import { ActiveStatus, UserItem, Username } from './styles';
 import UserSuggest from '../UserSuggest';
+import userMeetingsService from '../../services/userMeetingsService';
+
+import { ActiveStatus, UserItem, Username, SearchContainer } from './styles';
 
 const UserList: React.FC = () => {
   const [userList, setUserList] = useState<User[]>([]);
@@ -28,12 +29,10 @@ const UserList: React.FC = () => {
   const loadUsers = useCallback(async (): Promise<void> => {
     try {
       setIsLoading(true);
-      const users = await userService.all();
-      const filteredUsers = users
-        .map((user: User) => ({ ...user, name: user.name.split(/(\s).+\s/).join("") }))
-        .filter((user: User) => user._id !== loggedUserId);
+      const users = await userMeetingsService.listMeetingUsers(loggedUserId);
+      const filteredUsers = users.map((user: User) => ({ ...user, name: user.name.split(/(\s).+\s/).join("") }));
       setUserList(sortUsers(filteredUsers));
-      if (users.length) dispatch(setActiveMeeting(filteredUsers[0]));
+      if (filteredUsers.length) dispatch(setActiveMeeting(filteredUsers[0]));
     } catch (error) {
       console.error(error);
     } finally {
@@ -47,8 +46,6 @@ const UserList: React.FC = () => {
 
   const mapUserItem = (user: User): ReactElement => {
     const isActive = user._id === activeMeetingUser._id;
-
-    console.log('avatar', user.imageUrl);
 
     return (
       <UserItem isActive={isActive} onClick={(): void => handleSelectMeeting(user)} key={user._id}>
@@ -66,11 +63,15 @@ const UserList: React.FC = () => {
   return isLoading ? (
     <Loading />
   ) : (
-    <List>
-      <UserSuggest suggestionsData={userList} onClick={handleSelectMeeting} />
-
-      {userList.map(mapUserItem)}
-    </List>
+    <>
+      <SearchContainer>
+        <UserSuggest onClick={handleSelectMeeting} />
+      </SearchContainer>
+      
+      <List>
+        {userList.map(mapUserItem)}
+      </List>
+    </>
   );
 };
 

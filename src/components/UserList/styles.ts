@@ -26,3 +26,8 @@ export const ActiveStatus = styled.div<ActiveProps>`
 export const UserItem = styled(ListItem).attrs({ button: true })<ActiveProps>`
   padding: ${({ theme, isActive }): string => (isActive ? 0 : theme.spacings.xs)} 0;
 `;
+
+export const SearchContainer = styled.div`
+  margin-bottom: 24px;
+  margin-left: 16px;
+`

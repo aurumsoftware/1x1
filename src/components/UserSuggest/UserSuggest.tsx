@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Autosuggest from 'react-autosuggest';
+import Autosuggest, { RenderSuggestionsContainerParams,  } from 'react-autosuggest';
 import { User } from '../../../types';
 import { useSelector } from 'react-redux';
 import { getUserInfo } from '../../store/selectors/authSelectors';
@@ -10,7 +10,6 @@ import { StyledInput, Container, StyledPersonAdd, SuggestionContainer, Suggestio
 interface Props {
   onClick(user: User): void;
 }
-
 
 const UserSuggest: React.FC<Props> = ({ onClick }) => {
   const { _id: loggedUserId } = useSelector(getUserInfo);
@@ -40,18 +39,15 @@ const UserSuggest: React.FC<Props> = ({ onClick }) => {
     return suggestion.email;
   };
 
-  const onChange = (event: any, { newValue }: any): void => {
+  const onChange = (event: any, { newValue }: { newValue: string}): void => {
     setSearchValue(newValue);
   };
 
   const handleSuggestionFetch = ({ value }: { value: string }): void => {
     if (value.length >= 1) {
-      console.log({value})
       const suggestionFilter = usersList.filter(user => {
         return user.email.toLowerCase().includes(value.toLowerCase());
       });
-
-      console.log({suggestionFilter})
 
       if (!!suggestionFilter) {
         setUserSuggestions(suggestionFilter);
@@ -72,7 +68,7 @@ const UserSuggest: React.FC<Props> = ({ onClick }) => {
 
   const renderSuggestion = (suggestion: User) => <SuggestionItem>{suggestion.email}</SuggestionItem>;
 
-  const renderSuggestionsContainer = ({ containerProps, children, query }: any) => {
+  const renderSuggestionsContainer = ({ containerProps, children, query }: RenderSuggestionsContainerParams) => {
     return <SuggestionContainer {...containerProps}>{children}</SuggestionContainer>;
   };
 

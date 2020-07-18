@@ -8,6 +8,7 @@ import { getActiveMeetingUser } from '../../store/selectors/meetingSelectors';
 import MeetingHeader from './MeetingHeader';
 import MeetingList from './MeetingList';
 import MeetingEditItem from './MeetingList/MeetingItem/MeetingEditItem';
+import { MeetingProvider, MeetingContextValue } from '../../contexts/MeetingContext';
 
 const Meetings: React.FC = () => {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
@@ -27,7 +28,7 @@ const Meetings: React.FC = () => {
     }
   }, [activeMeetingUser._id, loggedUser._id]);
 
-  const handleCreate = (): void => {
+  const showNewMeetingForm = (): void => {
     setIsCreating(true);
   };
 
@@ -35,18 +36,25 @@ const Meetings: React.FC = () => {
     setIsCreating(false);
   };
 
-  console.log('isCreating', isCreating);
+  const updateMeetings = (newMeetingList: Meeting[]): void => {
+    setMeetings(newMeetingList);
+  };
 
   useEffect(() => {
     fetchMeetings();
   }, [activeMeetingUser._id, fetchMeetings]);
 
+  const context: MeetingContextValue = {
+    data: { meetings, isCreating },
+    actions: { updateMeetings, showNewMeetingForm },
+  };
+
   return (
-    <>
-      <MeetingHeader user={activeMeetingUser} count={meetings.length} onClickCreateAction={handleCreate} />
+    <MeetingProvider value={context}>
+      <MeetingHeader user={activeMeetingUser} count={meetings.length} onClickCreateAction={showNewMeetingForm} />
       {isCreating && <MeetingEditItem onCancel={handleFormCancel} />}
-      {isLoading ? <Loading /> : <MeetingList meetings={meetings} onAdd={handleCreate} showEmptyState={!isCreating} />}
-    </>
+      {isLoading ? <Loading /> : <MeetingList meetings={meetings} showEmptyState={!isCreating} />}
+    </MeetingProvider>
   );
 };
 

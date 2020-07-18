@@ -13,6 +13,9 @@ import Card from '../../../../../components/Card';
 import Chip from '../../../../../components/Chip/Chip';
 import DateField from '../../../../../components/DateField';
 import { Content, Header } from '../styles';
+import meetingService from '../../../../../services/meetingService';
+import toastr from 'cogo-toast';
+import Loading from '../../../../../components/Loading';
 
 interface Props {
   meeting: Meeting;
@@ -21,20 +24,31 @@ interface Props {
 
 const MeetingDisplayItem: React.FC<Props> = ({ meeting, onEdit }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const { meetingDate, meetingTitle, checklist = [] } = meeting;
 
   const countDoneTasks = (acc: number, item: Task): number => (item.checked ? acc + 1 : acc);
 
   const doneCount = checklist.reduce(countDoneTasks, 0);
 
-  const handleToggleConfirmationModal = (e: any): void => {
+  const handleToggleConfirmationModal = (e?: any): void => {
     if (e) e.stopPropagation();
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleDelete = (): void => {
+  const handleDelete = async (e: any): Promise<void> => {
+    if (e) e.stopPropagation();
     try {
-    } catch (error) {}
+      setIsDeleting(true);
+      await meetingService.remove(meeting._id || '');
+      toastr.success('A reunião foi removida');
+    } catch (error) {
+      console.error(error);
+      toastr.success('Ops! Não foi possível remover a reunião. Tente novamente mais tarde');
+    } finally {
+      setIsDeleting(false);
+      handleToggleConfirmationModal();
+    }
   };
 
   return (
@@ -69,9 +83,13 @@ const MeetingDisplayItem: React.FC<Props> = ({ meeting, onEdit }) => {
             <Button color="secondary" onClick={handleToggleConfirmationModal}>
               Cancelar
             </Button>
-            <Button color="primary" onClick={handleToggleConfirmationModal}>
-              Confirmar
-            </Button>
+            {isDeleting ? (
+              <Loading size={20} noMargin />
+            ) : (
+              <Button color="primary" onClick={handleDelete}>
+                Confirmar
+              </Button>
+            )}
           </DialogActions>
         </Dialog>
       </Content>

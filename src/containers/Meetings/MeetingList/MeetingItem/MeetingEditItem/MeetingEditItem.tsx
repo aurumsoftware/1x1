@@ -102,7 +102,7 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
         <Divider />
         <FormActionHeader title="Lista de atividades" onClick={handleAddTask} actionIcon={<Add />} />
         <CheckList values={values?.checklist} onChange={handleUpdateTask} onRemove={handleRemoveTask} />
-        <Divider />
+        {/* <Divider />
         <FormActionHeader
           title="Notas privadas"
           onClick={handleTogglePrivateNotes}
@@ -112,7 +112,7 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
           <RichText value={values.description} onChange={handleChangeDescription}></RichText>
         ) : (
           <></>
-        )}
+        )} */}
         <Actions>
           <Button color="secondary" onClick={onCancel}>
             Cancelar

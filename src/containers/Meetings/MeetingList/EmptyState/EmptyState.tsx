@@ -1,12 +1,13 @@
 import Typography from '@material-ui/core/Typography';
-import React from 'react';
+import React, { useContext } from 'react';
 import { AddButton, EmptyStateContainer, EmptyStateImage, EmptyStateTitle } from './styles';
+import MeetingContext, { MeetingContextValue } from '../../../../contexts/MeetingContext';
 
-interface Props {
-  onClickAdd: () => void;
-}
+const EmptyState: React.FC = () => {
+  const { actions } = useContext(MeetingContext);
 
-const EmptyState: React.FC<Props> = ({ onClickAdd }) => {
+  console.log('actions', actions);
+
   return (
     <EmptyStateContainer>
       <EmptyStateImage />
@@ -15,7 +16,7 @@ const EmptyState: React.FC<Props> = ({ onClickAdd }) => {
         Adicione tópicos para conversar com seu líder ou colega, lista de tarefas, notas de reunião e anotações
         particulates.
       </Typography>
-      <AddButton onClick={onClickAdd}>Adicionar</AddButton>
+      <AddButton onClick={actions?.showNewMeetingForm}>Adicionar</AddButton>
     </EmptyStateContainer>
   );
 };

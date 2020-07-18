@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Meeting, Task } from '../../../../../../types';
 import Card from '../../../../../components/Card';
 import Chip from '../../../../../components/Chip/Chip';
@@ -16,6 +16,7 @@ import { Content, Header } from '../styles';
 import meetingService from '../../../../../services/meetingService';
 import toastr from 'cogo-toast';
 import Loading from '../../../../../components/Loading';
+import MeetingContext from '../../../../../contexts/MeetingContext';
 
 interface Props {
   meeting: Meeting;
@@ -26,6 +27,7 @@ const MeetingDisplayItem: React.FC<Props> = ({ meeting, onEdit }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const { meetingDate, meetingTitle, checklist = [] } = meeting;
+  const { data = { meetings: [] }, actions } = useContext(MeetingContext);
 
   const countDoneTasks = (acc: number, item: Task): number => (item.checked ? acc + 1 : acc);
 
@@ -36,15 +38,22 @@ const MeetingDisplayItem: React.FC<Props> = ({ meeting, onEdit }) => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const removeMeetingFromList = (meetingId?: string): void => {
+    actions?.updateMeetings(data.meetings.filter(({ _id }) => _id !== meetingId));
+  };
+
   const handleDelete = async (e: any): Promise<void> => {
     if (e) e.stopPropagation();
     try {
       setIsDeleting(true);
       await meetingService.remove(meeting._id || '');
-      toastr.success('A reunião foi removida');
+      removeMeetingFromList(meeting._id);
+      toastr.success('A reunião foi removida', { position: 'bottom-left' });
     } catch (error) {
       console.error(error);
-      toastr.success('Ops! Não foi possível remover a reunião. Tente novamente mais tarde');
+      toastr.success('Ops! Não foi possível remover a reunião. Tente novamente mais tarde', {
+        position: 'bottom-left',
+      });
     } finally {
       setIsDeleting(false);
       handleToggleConfirmationModal();

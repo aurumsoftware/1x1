@@ -26,8 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     appBar: {
-      background: 'transparent',
-      boxShadow: 'none',
+      background: 'white',
+      boxShadow: '0 1px 8px 1px rgba(0, 0, 0, 0.15)',
 
       [theme.breakpoints.up('sm')]: {
         width: `calc(100% - ${drawerWidth}px)`,
@@ -35,8 +35,20 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'none',
       },
     },
+    wrapperLogo: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+    },
+    logo: {
+      width: '40px',
+      borderRadius: '12px',
+      marginLeft: '-40px',
+    },
     menuButton: {
       marginRight: theme.spacing(2),
+      color: 'white',
       [theme.breakpoints.up('sm')]: {
         display: 'none',
       },
@@ -49,7 +61,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      marginLeft: theme.spacing(4),
+      margin: `${theme.spacing(8)}px ${theme.spacing(3)}px 0`,
+      [theme.breakpoints.up('sm')]: {
+        marginTop: 0,
+      },
     },
   }),
 );
@@ -88,6 +103,10 @@ const Drawer: React.FC<DrawerProps> = ({ container, children }) => {
           >
             <MenuIcon color="primary" />
           </IconButton>
+
+          <div className={classes.wrapperLogo}>
+            <img src="logo192.png" alt="app logo" className={classes.logo} />
+          </div>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">

@@ -1,34 +1,33 @@
 import { Button } from '@material-ui/core';
+import Add from '@material-ui/icons/Add';
+import toast from 'cogo-toast';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Meeting, Task } from '../../../../../../types';
 import Card from '../../../../../components/Card';
+import CheckList from '../../../../../components/CheckList';
 import DateField from '../../../../../components/DateField';
+import FormActionHeader from '../../../../../components/FormActionHeader';
+import Loading from '../../../../../components/Loading';
 import RichText from '../../../../../components/RichText';
 import TextInput from '../../../../../components/TextInput';
-import { Actions, Divider } from './styles';
-import FormActionHeader from '../../../../../components/FormActionHeader';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Add from '@material-ui/icons/Add';
-import CheckList from '../../../../../components/CheckList';
-import Loading from '../../../../../components/Loading';
+import MeetingContext from '../../../../../contexts/MeetingContext';
 import meetingService from '../../../../../services/meetingService';
-import toast from 'cogo-toast';
-import { useSelector } from 'react-redux';
 import { getUserId } from '../../../../../store/selectors/authSelectors';
 import { getActiveMeetingUserId } from '../../../../../store/selectors/meetingSelectors';
-
+import { Actions, Divider } from './styles';
 interface Props {
   meeting?: Meeting;
   onCancel: () => void;
 }
 
 const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
-  const [showingPrivateNotes, setShowingPrivateNotes] = useState<boolean>(false);
+  // const [showingPrivateNotes, setShowingPrivateNotes] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const userId = useSelector(getUserId);
   const otherUserId = useSelector(getActiveMeetingUserId);
+  const { data, actions } = useContext(MeetingContext);
   const buildInitialValues = (): Meeting =>
     meeting || {
       _id: undefined,
@@ -40,14 +39,34 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
       checklist: [] as Task[],
     };
 
+  const updateMeetingsList = (meeting: Meeting, isEdit: boolean): void => {
+    const meetings: Meeting[] = data?.meetings || [];
+
+    const newMeetingList = isEdit
+      ? meetings.map((meetingItem: Meeting) => (meetingItem._id === meeting._id ? meeting : meetingItem))
+      : [...meetings, meeting];
+
+    actions?.updateMeetings(newMeetingList);
+  };
+
   const handleFormSubmit = async (formValues: Meeting): Promise<void> => {
+    const isEdit = !!formValues._id;
     try {
       setIsLoading(true);
-      await (formValues._id ? meetingService.update(formValues, formValues._id) : meetingService.create(formValues));
-      toast.success(`A reunião foi ${formValues._id ? 'alterada' : 'criada'}!`, { position: 'bottom-left' });
+      const newMeeting: Meeting = await (formValues._id
+        ? meetingService.update(formValues, formValues._id)
+        : meetingService.create(formValues));
+
+      console.log('newMeeting', newMeeting);
+
+      toast.success(`A reunião foi ${isEdit ? 'alterada' : 'criada'}!`, { position: 'bottom-left' });
+      updateMeetingsList(newMeeting, isEdit);
       onCancel();
     } catch (error) {
       console.error(error);
+      toast.success(`Ops! Não foi possível ${isEdit ? 'alterar' : 'criar'} a reunião. Tente novamente mais tarde`, {
+        position: 'bottom-left',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -66,9 +85,9 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
     setFieldValue('description', value);
   };
 
-  const handleTogglePrivateNotes = (): void => {
-    setShowingPrivateNotes(!showingPrivateNotes);
-  };
+  // const handleTogglePrivateNotes = (): void => {
+  //   setShowingPrivateNotes(!showingPrivateNotes);
+  // };
 
   const handleAddTask = (): void => {
     setFieldValue('checklist', [...values.checklist, { checked: false, description: '' }]);

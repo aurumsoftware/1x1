@@ -21,7 +21,7 @@ class App {
   }
 
   private database(): void {
-    mongoose.connect('mongodb+srv://guibas:12qwaszx@cluster0-nibop.mongodb.net/1x1?retryWrites=true&w=majority', {
+    mongoose.connect(process.env.MONGO_URL || '', {
       useNewUrlParser: true,
       useFindAndModify: false,
       useUnifiedTopology: true,

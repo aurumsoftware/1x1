@@ -9,6 +9,8 @@ import MeetingHeader from './MeetingHeader';
 import MeetingList from './MeetingList';
 import MeetingEditItem from './MeetingList/MeetingItem/MeetingEditItem';
 import { MeetingProvider, MeetingContextValue } from '../../contexts/MeetingContext';
+import EmptyState from './MeetingList/EmptyState';
+import { EmptyStateContainer } from './styles';
 
 const Meetings: React.FC = () => {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
@@ -49,11 +51,25 @@ const Meetings: React.FC = () => {
     actions: { updateMeetings, showNewMeetingForm },
   };
 
-  return (
-    <MeetingProvider value={context}>
+  const meetingContent = (
+    <>
       <MeetingHeader user={activeMeetingUser} count={meetings.length} onClickCreateAction={showNewMeetingForm} />
       {isCreating && <MeetingEditItem onCancel={handleFormCancel} />}
       {isLoading ? <Loading /> : <MeetingList meetings={meetings} showEmptyState={!isCreating} />}
+    </>
+  );
+
+  console.log('activeMeetingUser', activeMeetingUser);
+
+  return (
+    <MeetingProvider value={context}>
+      {activeMeetingUser._id ? (
+        meetingContent
+      ) : (
+        <EmptyStateContainer>
+          <EmptyState noMeetings />
+        </EmptyStateContainer>
+      )}
     </MeetingProvider>
   );
 };

@@ -3,18 +3,22 @@ import React, { useContext } from 'react';
 import { AddButton, EmptyStateContainer, EmptyStateImage, EmptyStateTitle } from './styles';
 import MeetingContext, { MeetingContextValue } from '../../../../contexts/MeetingContext';
 
-const EmptyState: React.FC = () => {
+interface Props {
+  noMeetings?: boolean;
+}
+
+const EmptyState: React.FC<Props> = ({ noMeetings = false }) => {
   const { actions } = useContext(MeetingContext);
 
-  console.log('actions', actions);
-
+  const description = noMeetings
+    ? 'Busque por algum colega para iniciar uma reunião.'
+    : 'Adicione tópicos para conversar com seu líder ou colega, lista de tarefas, notas de reunião e anotações particulates.';
   return (
     <EmptyStateContainer>
       <EmptyStateImage />
       <EmptyStateTitle>Parece meio vazio aqui...</EmptyStateTitle>
       <Typography align="center" variant="subtitle2" color="textSecondary">
-        Adicione tópicos para conversar com seu líder ou colega, lista de tarefas, notas de reunião e anotações
-        particulates.
+        {description}
       </Typography>
       <AddButton onClick={actions?.showNewMeetingForm}>Adicionar</AddButton>
     </EmptyStateContainer>

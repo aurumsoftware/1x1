@@ -57,8 +57,6 @@ const MeetingEditItem: React.FC<Props> = ({ meeting, onCancel }) => {
         ? meetingService.update(formValues, formValues._id)
         : meetingService.create(formValues));
 
-      console.log('newMeeting', newMeeting);
-
       toast.success(`A reunião foi ${isEdit ? 'alterada' : 'criada'}!`, { position: 'bottom-left' });
       updateMeetingsList(newMeeting, isEdit);
       onCancel();

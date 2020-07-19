@@ -9,11 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ptBR from 'date-fns/locale/pt-BR';
 
-const newLo = { ...ptBR, localize: { ...ptBR.localize, weekdays: { short: ['a', 'b', 'b', 'b', 'b', 'b', 'b'] } } };
-
-console.log('ptBR', newLo);
-
-registerLocale('pt-BR', newLo);
+registerLocale('pt-BR', ptBR);
 setDefaultLocale('pt-BR');
 
 ReactDOM.render(<App />, document.getElementById('root'));

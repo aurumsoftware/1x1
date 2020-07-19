@@ -32,13 +32,11 @@ const UserMenu: React.FC = () => {
   };
 
   const handleLogoutSuccess = (): void => {
-    console.log('SUCCESS');
     setUserInfo({});
     dispatchAndGo();
     handleClose();
   };
   const handleLogoutError = (): void => {
-    console.log('Error');
     handleClose();
   };
 

@@ -56,7 +56,6 @@ const Login: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log('userInfo', userInfo);
     if (userInfo.accessToken) dispatchAndGo(userInfo.accessToken, userInfo.user);
   }, [userInfo, dispatchAndGo]);
 

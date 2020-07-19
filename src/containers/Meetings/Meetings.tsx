@@ -59,8 +59,6 @@ const Meetings: React.FC = () => {
     </>
   );
 
-  console.log('activeMeetingUser', activeMeetingUser);
-
   return (
     <MeetingProvider value={context}>
       {activeMeetingUser._id ? (

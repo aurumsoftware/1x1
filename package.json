@@ -69,8 +69,7 @@
     "lint-staged": "^10.0.8",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
-    "sucrase": "^3.12.1",
-    "yarn-deduplicate": "^2.1.1"
+    "sucrase": "^3.12.1"
   },
   "scripts": {
     "start:client": "react-scripts start",
@@ -80,7 +79,7 @@
     "start:server": "nodemon server/server.ts",
     "start:server-prod": "node server/server.js",
     "build:server": "tsc -p server",
-    "start": "concurrently \"serve -s build\" \"node dist/server.js\"",
+    "start": "node dist/server.js",
     "dev": "concurrently \"yarn start:server\" \"yarn start:client\"",
     "build": "concurrently \"yarn build:server\" \"yarn build:client\""
   },

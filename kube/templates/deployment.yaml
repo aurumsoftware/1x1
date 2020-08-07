@@ -16,7 +16,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - name: {{ .Chart.Name }}
-              containerPort: 3000
+              containerPort: 5000
               protocol: TCP
           env:
             - name: API_PORT

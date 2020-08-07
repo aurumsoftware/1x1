@@ -29,4 +29,9 @@ spec:
             - secretRef:
                 name: 1x1-mongo-url
           resources:
-  {{ toYaml .Values.resources | indent 10 }}
+            requests:
+              cpu: 150m
+              memory: 400Mi
+            limits:
+              cpu: 250m
+              memory: 800Mi

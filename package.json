@@ -79,7 +79,7 @@
     "start:server": "nodemon server/server.ts",
     "start:server-prod": "node server/server.js",
     "build:server": "tsc -p server",
-    "start": "node dist/server.js",
+    "start": "concurrently \"serve -s build\" \"node dist/server.js\"",
     "dev": "concurrently \"yarn start:server\" \"yarn start:client\"",
     "build": "concurrently \"yarn build:server\" \"yarn build:client\""
   },

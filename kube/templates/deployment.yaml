@@ -20,7 +20,7 @@ spec:
               protocol: TCP
           env:
             - name: API_PORT
-              value: 3333
+              value: "3333"
           envFrom:
             - secretRef:
                 name: 1x1-api-url

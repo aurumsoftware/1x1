@@ -1,0 +1,206 @@
+kind: pipeline
+name: pipeline-1x1
+
+steps:
+
+
+############################################
+### PULL REQUEST HOMOLOG
+############################################
+
+- name: pr_homolog_image_gcr
+  image: plugins/gcr
+  settings:
+    repo: gcr.io/aurum-services/${DRONE_REPO_NAME}
+    tags: latest, ${DRONE_COMMIT_SHA}
+    json_key:
+      from_secret: google_credentials
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+  when:
+    event: [pull_request]
+    branch: [homolog]
+    status: [success]
+
+- name: pr_homolog_notify_image_gcr
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: slack_webhook
+    channel: build-services
+    username: drone-build-image
+    template: >
+      Pull request no homolog do repositório {{repo.name}}
+      {{#success build.status}}
+       Imagem do serviço {{repo.name}} criada com sucesso. gcr.io/aurum-services/{{repo.name}}:{{build.commit}}
+      {{else}}
+       Imagem do serviço {{repo.name}} falhou. Tag: {{build.commit}}
+      {{/success}}
+      Link:{{build.link}}
+      Autor:{{build.author}}
+  when:
+    event: [pull_request]
+    branch: [homolog]
+    status: [ success, failure ]
+
+############################################
+### PUSH HOMOLOG
+############################################
+
+- name: push_homolog_image_gcr
+  image: plugins/gcr
+  settings:
+    repo: gcr.io/aurum-services/${DRONE_REPO_NAME}
+    tags: latest, ${DRONE_COMMIT_SHA}
+    dockerfile: Dockerfile
+    json_key:
+      from_secret: google_credentials
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+  when:
+    event: [push]
+    branch: [homolog]
+    status: [success]
+
+- name: push_homolog_notify_image_gcr
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: slack_webhook
+    channel: build-services
+    username: drone-build-image
+    template: >
+      Push no homolog do repositório {{repo.name}}
+      {{#success build.status}}
+       Imagem do serviço {{repo.name}} criada com sucesso. gcr.io/aurum-services/{{repo.name}}:{{build.commit}}
+      {{else}}
+       Imagem do serviço {{repo.name}} falhou. Tag: {{build.commit}}
+      {{/success}}
+      Link:{{build.link}}
+      Autor:{{build.author}}
+  when:
+    event: [push]
+    branch: [homolog]
+    status: [success, failure]
+
+- name: push_homolog_deploy_homolog
+  image: quay.io/ipedrazas/drone-helm
+  settings:
+    chart: ./kube
+    release: x1-homolog
+    values: image.tag=${DRONE_COMMIT_SHA}
+    values_files: ./kube/homolog.yaml
+    skip_tls_verify: true
+    namespace: homolog
+    client_only: true
+  environment:
+    API_SERVER:
+      from_secret: api_server
+    KUBERNETES_TOKEN:
+      from_secret: kubernetes_token
+  when:
+    event: [push]
+    branch: [homolog]
+    status: [success]
+
+- name: push_homolog_notify_deploy
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: slack_webhook
+    channel: build-services
+    username: drone-deploy
+    template: >
+      Push no homolog do repositório {{repo.name}}
+      {{#success build.status}}
+        Deploy realizado com sucesso. Imagem do serviço {{repo.name}}. gcr.io/aurum-services/{{repo.name}}:{{build.commit}}
+      {{else}}
+        Falha no deploy. Imagem do serviço {{repo.name}}. Tag: {{build.commit}}
+      {{/success}}
+      Link: {{build.link}}
+      Autor: {{build.author}}
+  when:
+    event: [push]
+    branch: [homolog]
+    status: [ success, failure ]
+
+############################################
+### PUSH MASTER
+############################################
+
+- name: push_master_image_gcr
+  image: plugins/gcr
+  settings:
+    repo: gcr.io/aurum-services/${DRONE_REPO_NAME}
+    tags: latest, ${DRONE_COMMIT_SHA}
+    json_key:
+      from_secret: google_credentials
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+  when:
+    event: [push]
+    branch: [master]
+    status: [success]
+
+- name: push_master_notify_image_gcr
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: slack_webhook
+    channel: build-services
+    username: drone-build-image
+    template: >
+      Push no master do repositório {{repo.name}}
+      {{#success build.status}}
+       Imagem do serviço {{repo.name}} criada com sucesso. gcr.io/aurum-services/{{repo.name}}:{{build.commit}}
+      {{else}}
+       Imagem do serviço {{repo.name}} falhou. Tag: {{build.commit}}
+      {{/success}}
+      Link:{{build.link}}
+      Autor:{{build.author}}
+  when:
+    event: [push]
+    branch: [master]
+    status: [ success, failure ]
+
+- name: push_master_deploy_production
+  image: quay.io/ipedrazas/drone-helm
+  settings:
+    chart: ./kube
+    release: x1-production
+    values: image.tag=${DRONE_COMMIT_SHA}
+    values_files: ./kube/production.yaml
+    skip_tls_verify: true
+    namespace: production
+    client_only: true
+  environment:
+    API_SERVER:
+      from_secret: api_server
+    KUBERNETES_TOKEN:
+      from_secret: kubernetes_token
+  when:
+    event: [push]
+    branch: [master]
+    status: [success]
+
+- name: push_master_notify_deploy
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: slack_webhook
+    channel: build-services
+    username: drone-deploy
+    template: >
+      Push no master do repositório {{repo.name}}
+      {{#success build.status}}
+        Deploy realizado com sucesso. Imagem do serviço {{repo.name}}. gcr.io/aurum-services/{{repo.name}}:{{build.commit}}
+      {{else}}
+        Falha no deploy. Imagem do serviço {{repo.name}}. Tag: {{build.commit}}
+      {{/success}}
+      Pull request: {{build.pull}}
+      Link: {{build.link}}
+      Autor: {{build.author}}
+  when:
+    event: [push]
+    branch: [master]
+    status: [ success, failure ]

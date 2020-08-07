@@ -1,0 +1,18 @@
+# Production values for Time Wizard.
+
+minReplicaCount: 3
+maxReplicaCount: 5
+
+cpuPercent: 75
+
+image:
+  repository: gcr.io/aurum-services/1x1
+  tag: latest
+
+resources:
+  requests:
+    cpu: 150m
+    memory: 400Mi
+  limits:
+    cpu: 250m
+    memory: 800Mi

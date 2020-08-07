@@ -13,6 +13,8 @@ import { CircularProgress } from '@material-ui/core';
 
 const CLIENT_ID: string = process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
 
+console.log('ENVIRONMENT', process.env);
+
 const Login: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();

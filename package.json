@@ -55,6 +55,7 @@
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
     "babel-plugin-import": "^1.13.0",
+    "concurrently": "^5.2.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-airbnb-typescript": "^6.0.0",
     "eslint-config-prettier": "^6.10.0",
@@ -71,11 +72,16 @@
     "sucrase": "^3.12.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start:client": "react-scripts start",
+    "build:client": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start:server": "nodemon server/server.ts"
+    "start:server": "nodemon server/server.ts",
+    "start:server-prod": "node server/server.js",
+    "build:server": "tsc -p server",
+    "start": "node dist/server.js",
+    "dev": "concurrently \"yarn start:server\" \"yarn start:client\"",
+    "build": "concurrently \"yarn build:server\" \"yarn build:client\""
   },
   "eslintConfig": {
     "extends": "react-app"

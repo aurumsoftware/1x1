@@ -1,0 +1,18 @@
+# Production values for Time Wizard.
+
+minReplicaCount: 3
+maxReplicaCount: 5
+
+cpuPercent: 75
+
+image:
+  repository: gcr.io/aurum-services/1x1
+  tag: docker-config
+
+resources:
+  requests:
+    cpu: 80m
+    memory: 150Mi
+  limits:
+    cpu: 160m
+    memory: 300Mi

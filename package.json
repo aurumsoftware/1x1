@@ -69,7 +69,8 @@
     "lint-staged": "^10.0.8",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
-    "sucrase": "^3.12.1"
+    "sucrase": "^3.12.1",
+    "yarn-deduplicate": "^2.1.1"
   },
   "scripts": {
     "start:client": "react-scripts start",

@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      nodeSelector:
+        beta.kubernetes.io/instance-type: n1-highmem-4
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - name: {{ .Chart.Name }}
+              containerPort: 3000
+              protocol: TCP
+          env:
+            - name: API_PORT
+              value: 3333
+          envFrom:
+            - secretRef:
+                name: 1x1-api-url
+            - secretRef:
+                name: 1x1-google-client-id
+            - secretRef:
+                name: 1x1-mongo-url
+          resources:
+  {{ toYaml .Values.resources | indent 10 }}

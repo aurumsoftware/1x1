@@ -1,6 +1,6 @@
 kind: pipeline
 name: pipeline-1x1
-
+type: kubernetes
 steps:
 
 

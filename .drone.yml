@@ -93,6 +93,7 @@ steps:
     skip_tls_verify: true
     namespace: homolog
     client_only: true
+    stable_repo_url: https://charts.helm.sh/stable
   environment:
     API_SERVER:
       from_secret: api_server
@@ -173,6 +174,7 @@ steps:
     skip_tls_verify: true
     namespace: production
     client_only: true
+    stable_repo_url: https://charts.helm.sh/stable
   environment:
     API_SERVER:
       from_secret: api_server

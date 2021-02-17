@@ -6,7 +6,7 @@ spec:
   scaleTargetRef:
     kind: Deployment
     name: {{ .Chart.Name }}
-    apiVersion: extensions/v1beta1
+    apiVersion: apps/v1
   minReplicas: {{ .Values.minReplicaCount }}
   maxReplicas: {{ .Values.maxReplicaCount }}
   targetCPUUtilizationPercentage: {{ .Values.cpuPercent }}

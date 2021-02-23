@@ -84,21 +84,19 @@ steps:
     status: [success, failure]
 
 - name: push_homolog_deploy_homolog
-  image: quay.io/ipedrazas/drone-helm
+  image: pelotech/drone-helm3
   settings:
+    mode: upgrade
     chart: ./kube
     release: x1-homolog
     values: image.tag=${DRONE_COMMIT_SHA}
     values_files: ./kube/homolog.yaml
     skip_tls_verify: true
     namespace: homolog
-    client_only: true
-    stable_repo_url: https://charts.helm.sh/stable
-  environment:
-    API_SERVER:
-      from_secret: api_server
-    KUBERNETES_TOKEN:
-      from_secret: kubernetes_token
+    kube_api_server:
+     from_secret: api_server
+    kube_token:
+     from_secret: kubernetes_token
   when:
     event: [push]
     branch: [homolog]

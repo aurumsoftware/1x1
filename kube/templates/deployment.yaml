@@ -4,6 +4,9 @@ metadata:
   name: {{ .Chart.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:

@@ -163,20 +163,18 @@ steps:
     status: [ success, failure ]
 
 - name: push_master_deploy_production
-  image: quay.io/ipedrazas/drone-helm
+  image: pelotech/drone-helm3
   settings:
+    mode: upgrade
     chart: ./kube
     release: x1-production
     values: image.tag=${DRONE_COMMIT_SHA}
     values_files: ./kube/production.yaml
     skip_tls_verify: true
     namespace: production
-    client_only: true
-    stable_repo_url: https://charts.helm.sh/stable
-  environment:
-    API_SERVER:
+    kube_api_server:
       from_secret: api_server
-    KUBERNETES_TOKEN:
+    kube_token:
       from_secret: kubernetes_token
   when:
     event: [push]
